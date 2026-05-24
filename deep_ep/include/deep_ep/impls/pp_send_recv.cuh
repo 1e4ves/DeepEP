@@ -143,8 +143,9 @@ pp_send_impl(const ncclDevComm_t nccl_dev_comm, const ncclWindow_t nccl_window,
         buffer, ((dst_idx_in_local + 2) * num_max_inflight_tensors + slot_idx) * num_max_tensor_bytes);
     auto recv_buffer_ptr = math::advance_ptr(
         buffer, ((local_idx_in_dst + 0) * num_max_inflight_tensors + slot_idx) * num_max_tensor_bytes);
+    auto nvlink_recv_buffer_ptr = gin.get_sym_ptr<ncclTeamTagWorld>(recv_buffer_ptr, dst_rank_idx);
 
-    // Wait buffer slot release and do TMA
+    // Wait buffer slot release and do TMA.
     if (ptx::elect_one_sync()) {
         check_signal<kNumTimeoutCycles>(
             gin,
@@ -153,19 +154,30 @@ pp_send_impl(const ncclDevComm_t nccl_dev_comm, const ncclWindow_t nccl_window,
             // TODO: print more info, and control the SM who prints it
             []() { printf("DeepEP PP send timeout, recv buffer is full"); }
         );
-        tma_copy<kNumSMs, kNumSmemBytes>(x, send_buffer_ptr, num_x_bytes, sm_idx);
+        if (nvlink_recv_buffer_ptr != nullptr)
+            tma_copy<kNumSMs, kNumSmemBytes>(x, nvlink_recv_buffer_ptr, num_x_bytes, sm_idx);
+        else
+            tma_copy<kNumSMs, kNumSmemBytes>(x, send_buffer_ptr, num_x_bytes, sm_idx);
     }
     cooperative_groups::this_grid().sync();
 
-    // Issue RDMA put
+    // Issue the transfer completion signal. Same-LSA peers already received the payload
+    // through the mapped symmetric pointer above; others keep using Gin put.
     if (sm_idx == 0 and ptx::elect_one_sync()) {
-        gin.put<ncclTeamTagWorld>(
-            recv_buffer_ptr,
-            send_buffer_ptr,
-            num_x_bytes, dst_rank_idx,
-            0,
-            // TODO: is this signal highly optimized?
-            ncclGin_SignalInc(static_cast<ncclGinSignal_t>(local_idx_in_dst + kNumRanks)));
+        if (nvlink_recv_buffer_ptr != nullptr) {
+            ptx::fence_acq_rel_sys();
+            gin.signal<ncclTeamTagWorld>(
+                dst_rank_idx,
+                ncclGin_SignalInc(static_cast<ncclGinSignal_t>(local_idx_in_dst + kNumRanks)));
+        } else {
+            gin.put<ncclTeamTagWorld>(
+                recv_buffer_ptr,
+                send_buffer_ptr,
+                num_x_bytes, dst_rank_idx,
+                0,
+                // TODO: is this signal highly optimized?
+                ncclGin_SignalInc(static_cast<ncclGinSignal_t>(local_idx_in_dst + kNumRanks)));
+        }
         *send_count_ptr += 1;
     }
 }
