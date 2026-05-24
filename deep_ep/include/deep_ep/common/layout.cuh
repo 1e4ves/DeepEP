@@ -5,8 +5,9 @@
 #include <deep_ep/common/math.cuh>
 #include <deep_ep/common/ptx.cuh>
 
-namespace deep_ep::elastic::layout {
+//把一段裸内存按DeepEP的通信协议解释成结构化布局
 
+namespace deep_ep::elastic::layout {
 struct WorkspaceLayout {
     void* workspace;
 
@@ -176,7 +177,10 @@ struct WorkspaceLayout {
     }
 };
 
+//描述一个token record 在通信buffer里的格式
 struct TokenLayout {
+    // wtf is sf?
+    // fp8 dispatch时的scale factor
     int num_hidden_bytes, num_sf_bytes;
     // NOTES: the top-k index is always 32-bit
     bool with_metadata;
@@ -239,6 +243,7 @@ struct TokenLayout {
         return math::advance_ptr<int>(get_topk_weights_ptr(), num_topk * sizeof(float));
     }
 
+    //combine的时候反向路由用
     __forceinline__ __device__ __host__ int* get_linked_list_idx_ptr() const {
         return get_src_token_global_idx_ptr() + 1;
     }
@@ -248,6 +253,7 @@ struct TokenLayout {
     }
 };
 
+//它描述的是[num_ranks, num_max_tokens_per_rank]的token buffer
 template <bool kWithMBarrier>
 struct BufferLayout {
     TokenLayout token_layout;

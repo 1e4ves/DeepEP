@@ -56,6 +56,9 @@ dispatch_copy_epilogue_impl(void* buffer, void* workspace,
 
     // Will block until the main dispatch kernel has finished and all data are visible
     // NOTES: PDL is used, please do not use `__ldg`
+
+
+    // 等主dispatch kernel 完成
     cudaGridDependencySynchronize();
 
     // For no CPU sync case, the number of received tokens should be read from the GPU tensor
@@ -67,7 +70,10 @@ dispatch_copy_epilogue_impl(void* buffer, void* workspace,
     int current_rank_start = 0, current_rank_end = 0;
     #pragma unroll
     for (int i = global_warp_idx; i < num_recv_tokens; i += kNumWarps * kNumSMs) {
+
+
         // Calculate token index in the buffer
+        // 好骚的写法
         while (i >= current_rank_end) {
             current_rank_idx += 1;
             EP_DEVICE_ASSERT(current_rank_idx < kNumScaleupRanks);

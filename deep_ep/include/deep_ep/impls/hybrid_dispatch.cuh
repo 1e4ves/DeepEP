@@ -10,6 +10,13 @@
 
 namespace deep_ep::elastic {
 
+// 一个block对应一个逻辑SM 工作单元；
+// 一个block里分三类warps：
+// notify warps -> 统计 count / prefix sum
+// scaleout warps -> 从x读token， 跨scaleout 发送
+// forward warps -> 从scaleout_recv_buffer 读 token， 转发到scaleup_buffer
+
+
 template <bool kDoCPUSync,
           bool kReuseSlotIndices,
           int kNumSMs,
@@ -46,6 +53,10 @@ hybrid_dispatch_impl(
     void* buffer,
     void* workspace, void* mapped_host_workspace,
     const int scaleout_rank_idx, const int scaleup_rank_idx) {
+
+    // forward warp里会用它判断：
+    // 某个expert 属于哪个scaleout rank
+    // 某个expert 属于哪个scaleup rank
     constexpr int kNumExpertsPerRank = kNumExperts / kNumRanks;
     constexpr int kNumExpertsPerScaleout = kNumExperts / kNumScaleoutRanks;
     EP_STATIC_ASSERT(kNumExperts % kNumScaleupRanks == 0, "Invalid number of experts or ranks");
@@ -64,6 +75,14 @@ hybrid_dispatch_impl(
 
     // The kernel uses a fixed space of dynamic shared memory (no static shared memory)
     extern __shared__ __align__(ptx::kNumTMAAlignBytes) int8_t smem[];
+
+    // 这块dynamic shared memory分两段用：
+    // 1.notify count shared memory
+    // 2.per-warp tma_buffer
+
+
+    // notify区
+    // 它用来放: rank_count[kNumRanks], expert_count[kNumExperts]
     constexpr int kNumSmemBytesForNotify = kNumNotifyThreads > 0 ?
         math::constexpr_align(kNumRanks + kNumExperts, kNumNotifyThreads) * sizeof(int) : 0;
     EP_STATIC_ASSERT(kNumSmemBytesForNotify % ptx::kNumTMAAlignBytes == 0, "Invalid TMA alignment");
@@ -73,6 +92,10 @@ hybrid_dispatch_impl(
 
     // NCCL Gin handle
     // Each warp is a channel
+
+
+
+    // NCCL Gin相关，不知道在干嘛
     const auto [qp_idx, sharing_mode] = comm::get_qp_mode<kNumSMs, kNumQPs, kNumChannelsPerSM, (kNumNotifyWarps > 0)>(
         sm_idx, (warp_idx - kNumNotifyWarps) % kNumChannelsPerSM, warp_idx < kNumNotifyWarps);
     const auto gin = handle::NCCLGin(nccl_dev_comm, nccl_window, qp_idx, sharing_mode);
@@ -104,6 +127,12 @@ hybrid_dispatch_impl(
 
     // Different warp roles
     if (warp_idx < kNumNotifyWarps) {
+        // notify warps
+        // 1.当前rank会给哪些rank 发token
+        // 2.当前rank会给哪些expert 发token
+        // 3.每个scaleup rank 最终会收到多少token
+        // 4.每个local expert 最终会收到多少token
+        // 5.epilogue 需要的prefix sum是什么
         // Assign shared memory
         constexpr int kNumAlignedElems = kNumSmemBytesForNotify / sizeof(int);
         const auto rank_expert_count = math::advance_ptr<int>(smem, 0);
@@ -119,6 +148,7 @@ hybrid_dispatch_impl(
         // Atomic add on shared memory
         EP_STATIC_ASSERT(kNumTopk <= 32, "Insufficient lanes");
         const auto global_warp_idx = sm_idx * kNumNotifyWarps + warp_idx;
+        //每个warp负责一个token？
         for (int i = global_warp_idx; i < num_tokens; i += kNumNotifyWarps * kNumSMs) {
             // Expert choice can not be redundant
             // NOTES: no assertions here as they are expensive
@@ -129,6 +159,8 @@ hybrid_dispatch_impl(
 
             // Rank choice should do deduplication here
             const auto dst_rank_idx = dst_expert_idx >= 0 ? dst_expert_idx / kNumExpertsPerRank : -1;
+
+            //去重
             if (ptx::deduplicate(dst_rank_idx, lane_idx) and dst_rank_idx >= 0)
                 atomicAdd_block(rank_count + dst_rank_idx, 1);
         }
@@ -137,8 +169,18 @@ hybrid_dispatch_impl(
         // Do full-grid reduction
         #pragma unroll
         for (int i = thread_idx; i < kNumRanks + kNumExperts; i += kNumNotifyThreads) {
+
+            // high 32 bits = 1
+            // low 32 bits = 当前SM上的count
             const int64_t counter = (1ll << 32ll) | rank_expert_count[i];
+            // red add 不知道是什么几把东西
             ptx::red_add(workspace_layout.get_notify_reduction_workspace_ptr() + i, counter);
+
+            // 所有SM都对同一个地址red_add，最后workspace里的值会变成：
+            // high 32 bits = 已经贡献的SM数
+            // low 32 bits = 所有SM的count之和
+            //
+            // SM后面会等待 （statsus >> 32) == kNumSMs
         }
 
         // Do the remaining work by SM 0
@@ -149,6 +191,7 @@ hybrid_dispatch_impl(
             for (int i = thread_idx; i < kNumRanks + kNumExperts; i += kNumNotifyThreads) {
                 comm::timeout_while<kNumTimeoutCycles>([=](const bool& is_last_check) {
                     const auto status = ptx::ld_volatile<int64_t>(workspace_layout.get_notify_reduction_workspace_ptr() + i);
+                    //等待完成
                     if ((status >> 32) == kNumSMs) {
                         // Encode and write into the send buffer
                         workspace_layout.get_scaleout_rank_expert_count_ptr<true>()[i] =
@@ -173,6 +216,9 @@ hybrid_dispatch_impl(
             // Issue scaleout writes to peers
             EP_STATIC_ASSERT(kReuseSlotIndices or kNumScaleoutRanks <= kNumNotifyThreads,
                              "kNumScaleoutRanks must be less than kNumNotifyThreads");
+
+            // 接下来SM0把自己的count发给所有scaleout peer
+            // 当前rank要把自己统计好的count发到每个目标scaleout rank的 recv区
             if (thread_idx < kNumScaleoutRanks) {
                 const auto dst_scaleout_rank_idx = thread_idx;
                 gin.put<ncclTeamTagRail>(
@@ -216,6 +262,12 @@ hybrid_dispatch_impl(
                 }
                 return count;
             };
+
+
+            // 经过前面的gin.put后，当前rank的recv区里有来自所有scaleout peer的count
+
+            // scaleout_rank_count_recv[scaleout_peer][scaleup_rank]
+            // scaleout_expert_count_recv[scaleout_peer][expert_in_this_scaleout]
 
             // Write into all scale-up peers' rank-level counters
             #pragma unroll
@@ -324,11 +376,16 @@ hybrid_dispatch_impl(
     } else if (warp_idx < kNumNotifyWarps + kNumScaleoutWarps) {
         const int scaleout_warp_idx = warp_idx - kNumNotifyWarps;
         const int channel_idx = sm_idx * kNumChannelsPerSM + scaleout_warp_idx;
+
+        // 一个scaleout warp = 一个channel
         scaleout_recv_buffer = scaleout_recv_buffer.get_rank_buffer(scaleout_rank_idx);
         scaleout_recv_buffer = scaleout_recv_buffer.get_channel_buffer<kNumMaxTokensPerChannel>(channel_idx);
 
         // Channel metadata maintenance
         EP_STATIC_ASSERT(kNumScaleoutRanks <= 32, "Invalid number of scale-out ranks");
+        // 这两个变量跟channel 的 producer进度有关。
+        // stored_scaleout_tail: 当前scaleout warp 已经给各个目标scaleout rank 分配了多少个slot
+        // 上一次通知forward warp 时的 tail
         int stored_scaleout_tail = 0, stored_old_scaleout_tail = 0;
         const auto update_scaleout_tail = [&](const bool& finish_flag = false) {
             if (lane_idx < kNumScaleoutRanks and
@@ -352,6 +409,8 @@ hybrid_dispatch_impl(
 
             // Issue TMA load
             const auto token_i64_idx = static_cast<int64_t>(token_idx);
+
+            // 选一个lane 发起 TMA load
             if (ptx::elect_one_sync()) {
                 ptx::tma_load_1d(tma_buffer.get_hidden_ptr(), math::advance_ptr(x, token_i64_idx * kNumHiddenBytes),
                                  mbarrier_ptr, kNumHiddenBytes);
@@ -385,6 +444,8 @@ hybrid_dispatch_impl(
             // Load top-k indices and weights
             EP_STATIC_ASSERT(kNumTopk <= 32, "Insufficient lanes for loading top-k indices");
             int stored_dst_scaleout_rank_idx = -1;
+
+            //每个lane 处理一个 topk selection
             if (lane_idx < kNumTopk) {
                 const auto uncasted_dst_expert_idx = __ldg(topk_idx + token_idx * kNumTopk + lane_idx);
                 const auto dst_expert_idx = static_cast<int>(uncasted_dst_expert_idx);
@@ -485,6 +546,8 @@ hybrid_dispatch_impl(
         int stored_scaleout_tail_idx = 0;
         int recv_scaleout_rank_idx = channel_idx % kNumScaleoutRanks;
         uint32_t wip_mask;
+
+        //ptx::gather 是啥
         while ((wip_mask = ptx::gather(stored_scaleout_tail_idx > stored_scaleout_old_tail_idx or stored_finish_flag == 0))) {
             // Pick next rank in round-robin
             const auto offset = (recv_scaleout_rank_idx + 1) % kNumScaleoutRanks;

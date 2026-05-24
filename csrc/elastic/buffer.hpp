@@ -55,6 +55,7 @@ class ElasticBuffer {
     // NCCL context
     std::shared_ptr<nccl::NCCLSymmetricMemoryContext> nccl_context;
 
+    // 这是什么？
     // Some EP hybrid mode settings
     static constexpr int kNumMaxChannelsPerSM = 8;
     static constexpr int kNumMaxSMs = 160;
@@ -111,6 +112,8 @@ public:
         // Symmetric memory layout: [[[Workspace] GPU buffer] CPU buffer]
         // sym.num_bytes = workspace + buffer, sym.num_cpu_bytes = CPU buffer
         const auto num_sym_bytes = num_workspace_bytes + num_buffer_bytes;
+
+        // 分配 symmetric window
         this->nccl_context = std::make_shared<nccl::NCCLSymmetricMemoryContext>(
             nccl_comm, cpu_comm, num_ranks, rank_idx,
             num_sym_bytes, num_cpu_buffer_bytes,
@@ -126,13 +129,18 @@ public:
         this->num_gpu_timeout_cycles *= jit::device_runtime->get_clock_rate();
 
         // Assign workspaces and buffers
+        // 随后切成 workspace 和 buffer 两段
         workspace = this->nccl_context->mapped_window_ptr;
+        //workspace layout 又是什么？
         workspace_layout_wo_expert = std::make_shared<layout::WorkspaceLayout>(
             workspace, nccl_context->num_scaleout_ranks, nccl_context->num_scaleup_ranks, 0);
         buffer = static_cast<uint8_t*>(workspace) + num_workspace_bytes;
         CUDA_RUNTIME_CHECK(cudaMemset(workspace, 0, num_workspace_bytes));
 
         // Allocate host workspaces
+        // 这是pinned mapped host memory
+        // 用途不是搬token，而是 do_cpu_sync=True时，GPU kernel 把 count
+        // 写到 mapped host work space，CPU侧可以轮询读取
         CUDA_RUNTIME_CHECK(cudaMallocHost(&host_workspace, layout::WorkspaceLayout::get_num_bytes(), cudaHostAllocMapped));
         CUDA_RUNTIME_CHECK(cudaHostGetDevicePointer(&mapped_host_workspace, host_workspace, 0));
         std::memset(host_workspace, 0, layout::WorkspaceLayout::get_num_bytes());
@@ -558,9 +566,13 @@ public:
                                             const int& elem_size,
                                             const int& num_scaleout_ranks, const int& num_scaleup_ranks,
                                             const bool& is_scaleup_nvlink) {
+
+        // 就是 num_nodes * num_ranks_per_node
         const auto num_ranks = num_scaleup_ranks * num_scaleout_ranks;
+        // dispatch_token_layout 他妈的又是什么？
         const auto token_layout = get_dispatch_token_layout(hidden, elem_size, num_sf_packs, num_topk);
 
+        // 先不看
         if (num_scaleout_ranks == 1) {
             // Direct dispatch
             const auto send_buffer_layout = layout::BufferLayout<false>(
@@ -569,11 +581,18 @@ public:
                 token_layout, num_ranks, num_max_tokens_per_rank);
             return send_buffer_layout.get_num_bytes() + recv_buffer_layout.get_num_bytes();
         } else {
+
             // Hybrid dispatch
+            // 同节点内buffer, 从num_scaleup_ranks个GPU上，每个rank最多发
+            // shape:[num_scaleup_ranks, ]
             const auto scaleup_recv_buffer = layout::BufferLayout<false>(
                 token_layout, num_scaleup_ranks, num_scaleout_ranks * num_max_tokens_per_rank);
             const auto scaleout_send_buffer = layout::BufferLayout<false>(
                 token_layout, 1, num_max_tokens_per_rank);
+
+            // 这块的第二个维度为何是这个？
+            // kernel里实际构造第二维是：KNumChannels * KNumMaxTokensPerChannel
+            // 就是取一个上取整的上界
             const auto scaleout_recv_buffer = layout::BufferLayout<false>(
                 token_layout, num_scaleout_ranks,
                 /* kNumChannels * kNumMaxTokensPerChannel */ num_max_tokens_per_rank + kNumMaxChannels);
@@ -758,11 +777,15 @@ public:
 
         // Stream control
         // All new tensor allocations should happen after this
+        // 这是什么不知道
         const auto compute_stream = stream_control_prologue(previous_event, allocate_on_comm_stream, async_with_compute_stream);
 
         // The number of received tokens per expert
         // This is useful for expanding mode
         EP_HOST_ASSERT(num_experts % nccl_context->num_ranks == 0);
+
+        // 记录本rank 每个local expert收到多少token的prefix sum
+        // shape [num_local_experts + 1]
         auto psum_num_recv_tokens_per_expert = cached_psum_num_recv_tokens_per_expert.value_or(torch::Tensor());
         if (cached_mode) {
             const auto& [num_local_experts_] = get_shape<1>(psum_num_recv_tokens_per_expert);
@@ -777,7 +800,11 @@ public:
 
         // The prefix sum tensor of number of received tokens from each rank
         // Will also be used in combine as the dispatch handle
+
+
         auto psum_num_recv_tokens_per_scaleup_rank = cached_psum_num_recv_tokens_per_scaleup_rank.value_or(torch::Tensor());
+        // 记录当前rank 从每个scaleup peer 收到多少token的prefix sum
+        // num_scaleup_ranks
         if (cached_mode) {
             const auto [num_scaleup_ranks] = get_shape<1>(psum_num_recv_tokens_per_scaleup_rank);
             EP_HOST_ASSERT(num_scaleup_ranks == nccl_context->num_scaleup_ranks);
@@ -792,6 +819,8 @@ public:
         // Only for hybrid version
         int num_channels_per_sm = 1, num_channels = 1;
         const int num_smem_bytes = jit::device_runtime->get_num_smem_bytes();
+        // 每个channel基本对应kernel里一条scaleout/forward warp 流水线
+        //
         if (nccl_context->num_scaleout_ranks > 1) {
             const auto dispatch_token_layout = get_dispatch_token_layout(hidden, x.element_size(), num_sf_packs, num_topk);
             const auto combine_token_layout = get_combine_token_layout(hidden, sizeof(nv_bfloat16), num_topk);
@@ -802,6 +831,8 @@ public:
             num_channels_per_sm = std::min<int>(
                 num_smem_bytes / combine_token_layout.get_num_bytes<true>(),
                 num_channels_per_sm);
+            //hybrid dispatch 有两类数据warp
+
             num_channels_per_sm = std::min<int>(
                 /* 2 kinds of warps */ num_channels_per_sm / 2, kNumMaxChannelsPerSM);
             if (not prefer_overlap_with_compute)
@@ -814,6 +845,12 @@ public:
         // Non-hybrid mode handles
         std::optional<torch::Tensor> deterministic_rank_count_buffer = std::nullopt;
         auto dst_buffer_slot_idx = cached_dst_buffer_slot_idx.value_or(torch::Tensor());
+
+
+        // [num_channels, num_scaleout_ranks, num_max_toknes_per_channel, num_topk]
+        // [i, j, k, l]
+        // channel i， 来自 scaleout peer j, 第k个token， 第l个topk selection
+        // 最终写入目标scaleup rank buffer 的 slot index
         if (nccl_context->num_scaleout_ranks == 1) {
             if (cached_mode) {
                 const auto [num_tokens__, num_topk_] = get_shape<2>(dst_buffer_slot_idx);
@@ -849,6 +886,24 @@ public:
 
         // Hybrid mode handles
         std::optional<torch::Tensor> token_metadata_at_forward, channel_linked_list;
+        // shape [num_channels, num_max_forwarded_tokens, 2 + num_topk * 2]
+        // 每条 metadata 包含：
+
+        // ```text
+        // metadata[0]:
+        //   source token global index
+
+        // metadata[1]:
+        //   是否是当前 chunk 的最后一个 token
+
+        // metadata[2 : 2 + num_topk]:
+        //   每个 topk selection 对应的目标 scaleup rank
+
+        // metadata[2 + num_topk : 2 + 2 * num_topk]:
+        //   每个 topk selection 对应的目标 slot index
+        // ```
+
+        // 这个 tensor 记录的是 forward warp 处理 token 时产生的路由信息：
         int *token_metadata_at_forward_ptr = nullptr, *channel_linked_list_ptr = nullptr;
         if (nccl_context->num_scaleout_ranks > 1) {
             EP_HOST_ASSERT(not deterministic);
@@ -898,6 +953,8 @@ public:
 
             // Per-scaleup-peer-per-channel linked list
             // `[i, j, k]` means: from channel i from scaleup peer k, the j-th token's index in the combine's input
+            // [num_channels, num_scaleout_ranks * num_max_tokens_per_channels + 1, num_scaleup_ranks]
+            // channel i, scaleup peer k， 第j个token在combine input里的index
             if (cached_mode) {
                 channel_linked_list = cached_channel_linked_list;
                 const auto [num_channels__, d1_, d2_] = get_shape<3>(channel_linked_list.value());

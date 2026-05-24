@@ -8,6 +8,11 @@
 
 namespace deep_ep::elastic {
 
+
+// 这个函数只处理 PP ring里相邻rank
+// 返回两个值
+// (local_idx_in_dst, dst_idx_in_local)
+// （我在对方眼里是prev还是next，对方在我眼里是prev还是next）
 template <int kNumRanks>
 __device__ __forceinline__ std::pair<int, int> get_buffer_offset(
     const int& src_rank_idx, const int& dst_rank_idx) {
@@ -34,6 +39,8 @@ __device__ __forceinline__ void check_signal(
         return false;
     });
 }
+
+
 
 template <int kNumSMs,
           int kNumSmemBytes,
