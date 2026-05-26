@@ -1,0 +1,155 @@
+[
+  {
+    "prompt": "What is 17 + 25? Answer with the number only.",
+    "text": " Let's think step by step.\",\n   ",
+    "meta_info": {
+      "id": "7167ca589ac14ebb938aeb6162f596b3",
+      "finish_reason": {
+        "type": "length",
+        "length": 8
+      },
+      "prompt_tokens": 14,
+      "weight_version": "default",
+      "num_retractions": 0,
+      "reasoning_tokens": 0,
+      "completion_tokens": 8,
+      "cached_tokens": 0,
+      "cached_tokens_details": null,
+      "dp_rank": null,
+      "e2e_latency": 16.892482493072748,
+      "response_sent_to_client_ts": 1779789561.4789991
+    },
+    "raw": {
+      "text": " Let's think step by step.\",\n   ",
+      "output_ids": [
+        4480,
+        734,
+        2118,
+        3132,
+        513,
+        3132,
+        64465,
+        361
+      ],
+      "meta_info": {
+        "id": "7167ca589ac14ebb938aeb6162f596b3",
+        "finish_reason": {
+          "type": "length",
+          "length": 8
+        },
+        "prompt_tokens": 14,
+        "weight_version": "default",
+        "num_retractions": 0,
+        "reasoning_tokens": 0,
+        "completion_tokens": 8,
+        "cached_tokens": 0,
+        "cached_tokens_details": null,
+        "dp_rank": null,
+        "e2e_latency": 16.892482493072748,
+        "response_sent_to_client_ts": 1779789561.4789991
+      }
+    }
+  },
+  {
+    "prompt": "Write a one sentence definition of pipeline parallelism.",
+    "text": " What is the main advantage of pipeline parallelism",
+    "meta_info": {
+      "id": "33ea4f5c4a9e486496a665c5fb203f10",
+      "finish_reason": {
+        "type": "length",
+        "length": 8
+      },
+      "prompt_tokens": 9,
+      "weight_version": "default",
+      "num_retractions": 0,
+      "reasoning_tokens": 0,
+      "completion_tokens": 8,
+      "cached_tokens": 0,
+      "cached_tokens_details": null,
+      "dp_rank": null,
+      "e2e_latency": 1.3619503658264875,
+      "response_sent_to_client_ts": 1779789562.8430579
+    },
+    "raw": {
+      "text": " What is the main advantage of pipeline parallelism",
+      "output_ids": [
+        1999,
+        344,
+        270,
+        1840,
+        8912,
+        294,
+        28499,
+        120988
+      ],
+      "meta_info": {
+        "id": "33ea4f5c4a9e486496a665c5fb203f10",
+        "finish_reason": {
+          "type": "length",
+          "length": 8
+        },
+        "prompt_tokens": 9,
+        "weight_version": "default",
+        "num_retractions": 0,
+        "reasoning_tokens": 0,
+        "completion_tokens": 8,
+        "cached_tokens": 0,
+        "cached_tokens_details": null,
+        "dp_rank": null,
+        "e2e_latency": 1.3619503658264875,
+        "response_sent_to_client_ts": 1779789562.8430579
+      }
+    }
+  },
+  {
+    "prompt": "List two colors separated by a comma.",
+    "text": " The first color is the color of the",
+    "meta_info": {
+      "id": "543662c55c6443e095fd0ffdd2d7d5c4",
+      "finish_reason": {
+        "type": "length",
+        "length": 8
+      },
+      "prompt_tokens": 8,
+      "weight_version": "default",
+      "num_retractions": 0,
+      "reasoning_tokens": 0,
+      "completion_tokens": 8,
+      "cached_tokens": 0,
+      "cached_tokens_details": null,
+      "dp_rank": null,
+      "e2e_latency": 1.1358366115018725,
+      "response_sent_to_client_ts": 1779789563.9810863
+    },
+    "raw": {
+      "text": " The first color is the color of the",
+      "output_ids": [
+        455,
+        1257,
+        3605,
+        344,
+        270,
+        3605,
+        294,
+        270
+      ],
+      "meta_info": {
+        "id": "543662c55c6443e095fd0ffdd2d7d5c4",
+        "finish_reason": {
+          "type": "length",
+          "length": 8
+        },
+        "prompt_tokens": 8,
+        "weight_version": "default",
+        "num_retractions": 0,
+        "reasoning_tokens": 0,
+        "completion_tokens": 8,
+        "cached_tokens": 0,
+        "cached_tokens_details": null,
+        "dp_rank": null,
+        "e2e_latency": 1.1358366115018725,
+        "response_sent_to_client_ts": 1779789563.9810863
+      }
+    }
+  }
+]

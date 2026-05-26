@@ -1,0 +1,628 @@
+/root/sglang/python/sglang/launch_server.py:54: UserWarning: 'python -m sglang.launch_server' is still supported, but 'sglang serve' is the recommended entrypoint.
+  Example: sglang serve --model-path <model> [options]
+  warnings.warn(
+[2026-05-25 06:56:05] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:05] Use dsv4 attention backend for DeepseekV4ForCausalLM, setting page_size to 256.
+[2026-05-25 06:56:05] Setting swa_full_tokens_ratio to 0.1 for DeepseekV4ForCausalLM.
+[2026-05-25 06:56:05] Pipeline parallelism is incompatible with overlap schedule.
+[2026-05-25 06:56:06] server_args=ServerArgs(model_path='/root/models/DeepSeek-V4-Flash-FP8', tokenizer_path='/root/models/DeepSeek-V4-Flash-FP8', tokenizer_mode='auto', tokenizer_backend='huggingface', tokenizer_worker_num=1, detokenizer_worker_num=1, skip_tokenizer_init=False, load_format='auto', model_loader_extra_config='{"enable_multithread_load": "true", "num_threads": 64}', trust_remote_code=True, context_length=None, is_embedding=False, prefill_only_disable_kv_cache=False, enable_multimodal=None, revision=None, model_impl='auto', model_config_parser='auto', host='0.0.0.0', port=30000, fastapi_root_path='', grpc_mode=False, skip_server_warmup=False, warmups=None, nccl_port=None, checkpoint_engine_wait_weights_before_ready=False, ssl_keyfile=None, ssl_certfile=None, ssl_ca_certs=None, ssl_keyfile_password=None, enable_ssl_refresh=False, enable_http2=False, dtype='auto', quantization=None, quantization_param_path=None, kv_cache_dtype='fp8_e4m3', enable_fp32_lm_head=False, modelopt_quant=None, modelopt_checkpoint_restore_path=None, modelopt_checkpoint_save_path=None, modelopt_export_path=None, quantize_and_serve=False, rl_quant_profile=None, mem_fraction_static=0.78, max_running_requests=128, max_queued_requests=None, max_total_tokens=None, chunked_prefill_size=8192, enable_dynamic_chunking=False, max_prefill_tokens=16384, prefill_max_requests=None, schedule_policy='fcfs', enable_priority_scheduling=False, disable_priority_preemption=False, default_priority_value=None, abort_on_priority_when_disabled=False, schedule_low_priority_values_first=False, priority_scheduling_preemption_threshold=10, schedule_conservativeness=1.0, page_size=256, swa_full_tokens_ratio=0.1, disable_hybrid_swa_memory=False, radix_eviction_policy='lru', enable_prefill_delayer=False, prefill_delayer_max_delay_passes=30, prefill_delayer_token_usage_low_watermark=None, prefill_delayer_forward_passes_buckets=None, prefill_delayer_wait_seconds_buckets=None, prefill_delayer_queue_min_ratio=None, prefill_delayer_max_delay_ms=None, device='cuda', tp_size=4, pp_size=2, pp_max_micro_batch_size=None, pp_async_batch_depth=0, stream_interval=1, batch_notify_size=16, stream_response_default_include_usage=False, incremental_streaming_output=False, enable_streaming_session=False, random_seed=217533394, constrained_json_whitespace_pattern=None, constrained_json_disable_any_whitespace=False, watchdog_timeout=300, soft_watchdog_timeout=None, dist_timeout=None, download_dir=None, model_checksum=None, base_gpu_id=0, gpu_id_step=1, sleep_on_idle=False, use_ray=False, custom_sigquit_handler=None, log_level='info', log_level_http=None, log_requests=False, log_requests_level=2, log_requests_format='text', log_requests_target=None, uvicorn_access_log_exclude_prefixes=[], crash_dump_folder=None, show_time_cost=False, enable_metrics=False, grpc_http_sidecar_port=None, enable_mfu_metrics=False, enable_metrics_for_all_schedulers=False, tokenizer_metrics_custom_labels_header='x-custom-labels', tokenizer_metrics_allowed_custom_labels=None, extra_metric_labels=None, bucket_time_to_first_token=None, bucket_inter_token_latency=None, bucket_e2e_request_latency=None, prompt_tokens_buckets=None, generation_tokens_buckets=None, gc_warning_threshold_secs=0.0, decode_log_interval=40, enable_request_time_stats_logging=False, kv_events_config=None, enable_forward_pass_metrics=False, forward_pass_metrics_worker_id='', forward_pass_metrics_ipc_name=None, enable_trace=False, otlp_traces_endpoint='localhost:4317', export_metrics_to_file=False, export_metrics_to_file_dir=None, api_key=None, admin_api_key=None, served_model_name='/root/models/DeepSeek-V4-Flash-FP8', weight_version='default', chat_template=None, hf_chat_template_name=None, completion_template=None, file_storage_path='sglang_storage', enable_cache_report=False, reasoning_parser=None, strip_thinking_cache=False, enable_strict_thinking=False, tool_call_parser=None, tool_server=None, sampling_defaults='model', dp_size=1, load_balance_method='round_robin', attn_cp_size=1, moe_dp_size=1, dist_init_addr=None, nnodes=1, node_rank=0, json_model_override_args='{}', preferred_sampling_params=None, enable_lora=None, enable_lora_overlap_loading=None, max_lora_rank=None, lora_target_modules=None, lora_paths=None, max_loaded_loras=None, max_loras_per_batch=8, lora_eviction_policy='lru', lora_backend='csgmv', max_lora_chunk_size=16, experts_shared_outer_loras=None, lora_use_virtual_experts=False, lora_strict_loading=False, lora_drain_wait_threshold=0.0, attention_backend='dsv4', decode_attention_backend=None, prefill_attention_backend=None, sampling_backend='flashinfer', grammar_backend='xgrammar', mm_attention_backend=None, fp8_gemm_runner_backend='auto', fp4_gemm_runner_backend='auto', nsa_prefill_backend=None, nsa_decode_backend=None, disable_flashinfer_autotune=False, mamba_backend='triton', speculative_algorithm=None, speculative_draft_model_path=None, speculative_draft_model_revision=None, speculative_draft_load_format=None, speculative_num_steps=None, speculative_eagle_topk=None, speculative_num_draft_tokens=None, speculative_dflash_block_size=None, speculative_accept_threshold_single=1.0, speculative_accept_threshold_acc=1.0, speculative_token_map=None, speculative_attention_mode='prefill', speculative_draft_attention_backend=None, speculative_draft_window_size=None, speculative_moe_runner_backend='auto', speculative_moe_a2a_backend=None, speculative_draft_model_quantization=None, speculative_adaptive=False, speculative_adaptive_config=None, speculative_skip_dp_mlp_sync=False, speculative_ngram_min_bfs_breadth=1, speculative_ngram_max_bfs_breadth=10, speculative_ngram_match_type='BFS', speculative_ngram_max_trie_depth=18, speculative_ngram_capacity=10000000, speculative_ngram_external_corpus_path=None, speculative_ngram_external_sam_budget=0, speculative_ngram_external_corpus_max_tokens=10000000, enable_multi_layer_eagle=False, ep_size=1, moe_a2a_backend='none', moe_runner_backend='auto', flashinfer_mxfp4_moe_precision='default', enable_flashinfer_allreduce_fusion=False, enforce_disable_flashinfer_allreduce_fusion=False, enable_aiter_allreduce_fusion=False, deepep_mode='auto', deepep_dispatcher_output_dtype='auto', ep_num_redundant_experts=0, ep_dispatch_algorithm=None, init_expert_location='trivial', enable_eplb=False, eplb_algorithm='auto', eplb_rebalance_num_iterations=1000, eplb_rebalance_layers_per_chunk=None, eplb_min_rebalancing_utilization_threshold=1.0, expert_distribution_recorder_mode=None, expert_distribution_recorder_buffer_size=1000, enable_expert_distribution_metrics=False, deepep_config=None, moe_dense_tp_size=None, elastic_ep_backend=None, enable_elastic_expert_backup=False, mooncake_ib_device=None, enable_deepep_waterfill=False, elastic_ep_rejoin=False, max_mamba_cache_size=None, mamba_ssm_dtype=None, mamba_full_memory_ratio=0.9, mamba_scheduler_strategy='no_buffer', mamba_track_interval=256, linear_attn_backend='triton', linear_attn_decode_backend=None, linear_attn_prefill_backend=None, enable_hierarchical_cache=False, hicache_ratio=2.0, hicache_size=0, hicache_write_policy='write_through', hicache_io_backend='kernel', hicache_mem_layout='layer_first', hicache_storage_backend=None, hicache_storage_prefetch_policy='timeout', hicache_storage_backend_extra_config=None, enable_hisparse=False, hisparse_config=None, enable_lmcache=False, kt_weight_path=None, kt_method='AMXINT4', kt_cpuinfer=None, kt_threadpool_count=2, kt_num_gpu_experts=None, kt_max_deferred_experts_per_token=None, dllm_algorithm=None, dllm_algorithm_config=None, cpu_offload_gb=0, offload_group_size=-1, offload_num_in_group=1, offload_prefetch_step=1, offload_mode='cpu', enable_mis=False, disable_radix_cache=False, cuda_graph_max_bs=128, cuda_graph_bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], disable_cuda_graph=False, disable_cuda_graph_padding=False, enable_breakable_cuda_graph=False, enable_profile_cuda_graph=False, enable_cudagraph_gc=False, debug_cuda_graph=False, enable_layerwise_nvtx_marker=False, enable_nccl_nvls=False, enable_symm_mem=False, disable_flashinfer_cutlass_moe_fp4_allgather=False, enable_tokenizer_batch_encode=False, disable_tokenizer_batch_decode=False, disable_outlines_disk_cache=False, disable_custom_all_reduce=False, enable_mscclpp=False, enable_torch_symm_mem=False, pre_warm_nccl=False, disable_overlap_schedule=True, enable_mixed_chunk=False, enable_dp_attention=False, enable_dp_attention_local_control_broadcast=False, enable_dp_lm_head=False, enable_two_batch_overlap=False, enable_single_batch_overlap=False, tbo_token_distribution_threshold=0.48, enable_torch_compile=False, disable_piecewise_cuda_graph=True, enforce_piecewise_cuda_graph=False, enable_torch_compile_debug_mode=False, torch_compile_max_bs=32, piecewise_cuda_graph_max_tokens=8192, piecewise_cuda_graph_tokens=[4, 8, 12, 16, 20, 24, 28, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 256, 288, 320, 352, 384, 416, 448, 480, 512, 576, 640, 704, 768, 832, 896, 960, 1024, 1280, 1536, 1792, 2048, 2304, 2560, 2816, 3072, 3328, 3584, 3840, 4096, 4608, 5120, 5632, 6144, 6656, 7168, 7680, 8192], piecewise_cuda_graph_compiler='eager', torchao_config='', enable_nan_detection=False, enable_p2p_check=False, triton_attention_reduce_in_fp32=False, triton_attention_num_kv_splits=8, triton_attention_split_tile_size=None, num_continuous_decode_steps=1, delete_ckpt_after_loading=False, enable_memory_saver=False, enable_weights_cpu_backup=False, enable_draft_weights_cpu_backup=False, allow_auto_truncate=False, enable_custom_logit_processor=False, flashinfer_mla_disable_ragged=False, disable_shared_experts_fusion=False, enforce_shared_experts_fusion=False, disable_chunked_prefix_cache=False, disable_fast_image_processor=False, keep_mm_feature_on_device=False, enable_return_hidden_states=False, enable_return_routed_experts=False, enable_return_indexer_topk=False, scheduler_recv_interval=1, numa_node=None, enable_deterministic_inference=False, rl_on_policy_target=None, enable_attn_tp_input_scattered=False, gc_threshold=None, enable_nsa_prefill_context_parallel=False, nsa_prefill_cp_mode='round-robin-split', enable_fused_qk_norm_rope=False, enable_precise_embedding_interpolation=False, enable_fused_moe_sum_all_reduce=False, enable_prefill_context_parallel=False, prefill_cp_mode='in-seq-split', enable_dynamic_batch_tokenizer=False, dynamic_batch_tokenizer_batch_size=32, dynamic_batch_tokenizer_batch_timeout=0.002, debug_tensor_dump_output_folder=None, debug_tensor_dump_layers=None, debug_tensor_dump_input_file=None, debug_tensor_dump_inject=False, disaggregation_mode='null', disaggregation_transfer_backend='mooncake', disaggregation_bootstrap_port=8998, disaggregation_ib_device=None, disaggregation_decode_enable_radix_cache=False, disaggregation_decode_enable_offload_kvcache=False, num_reserved_decode_tokens=512, disaggregation_decode_polling_interval=1, encoder_only=False, language_only=False, encoder_transfer_backend='zmq_to_scheduler', encoder_urls=[], enable_adaptive_dispatch_to_encoder=False, custom_weight_loader=[], weight_loader_disable_mmap=False, weight_loader_prefetch_checkpoints=False, weight_loader_prefetch_num_threads=4, weight_loader_drop_cache_after_load=False, remote_instance_weight_loader_seed_instance_ip=None, remote_instance_weight_loader_seed_instance_service_port=None, remote_instance_weight_loader_send_weights_group_ports=None, remote_instance_weight_loader_backend='nccl', remote_instance_weight_loader_start_seed_via_transfer_engine=False, engine_info_bootstrap_port=6789, modelexpress_config=None, enable_pdmux=False, pdmux_config_path=None, sm_group_num=8, enable_broadcast_mm_inputs_process=False, enable_prefix_mm_cache=False, mm_enable_dp_encoder=False, mm_process_config={}, limit_mm_data_per_request=None, enable_mm_global_cache=False, decrypted_config_file=None, decrypted_draft_config_file=None, forward_hooks=None, enable_quant_communications=False, msprobe_dump_config=None)
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+[2026-05-25 06:56:06] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:07] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:08] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:08] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:09] No HuggingFace chat template found
+[2026-05-25 06:56:09] No chat template found, defaulting to 'string' content format
+[2026-05-25 06:56:17 PP1 TP0] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:17 PP1 TP3] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP1 TP1] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP0 TP2] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP1 TP0] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:18 PP0 TP3] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP0 TP1] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP1 TP3] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:18 PP1 TP2] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18 PP0 TP0] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:18] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:18 PP1 TP1] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:18 PP0 TP2] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:18 PP1 TP0] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP0 TP3] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:19 PP1 TP3] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP0 TP1] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:19 PP1 TP2] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:19 PP0 TP0] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:19] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP0 TP2] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP1 TP1] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP1 TP0] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:19 PP0 TP3] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP1 TP2] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP0 TP0] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP0 TP1] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:19 PP1 TP3] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:19 PP1 TP0] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:19 PP1 TP0] Init torch distributed begin.
+[2026-05-25 06:56:20] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP1 TP3] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP1 TP3] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP2] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP1 TP1] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP0 TP3] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP0 TP2] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP1 TP2] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP0 TP2] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP0] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP1 TP1] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP0 TP3] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP1 TP1] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP3] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP1] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:56:20 PP1 TP2] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP1 TP2] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP0] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP0 TP0] Init torch distributed begin.
+[2026-05-25 06:56:20 PP0 TP1] Hybrid swa model: self.hf_config.architectures=['DeepseekV4ForCausalLM']
+[2026-05-25 06:56:20 PP0 TP1] Init torch distributed begin.
+[2026-05-25 06:56:22 PP1 TP0] sglang is using nccl==2.30.4
+[2026-05-25 06:56:22 PP0 TP0] sglang is using nccl==2.30.4
+[2026-05-25 06:56:24 PP0 TP0] Custom allreduce v2 initialized successfully (rank-check failed: tensor model parallel group is not initialized)
+[2026-05-25 06:56:24 PP0 TP3] sglang is using nccl==2.30.4
+[2026-05-25 06:56:24 PP0 TP1] sglang is using nccl==2.30.4
+[2026-05-25 06:56:24 PP0 TP2] sglang is using nccl==2.30.4
+[2026-05-25 06:56:24 PP0 TP0] sglang is using nccl==2.30.4
+[2026-05-25 06:56:25 PP0 TP0] Init torch distributed ends. elapsed=4.81 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP1 TP2] Init torch distributed ends. elapsed=4.87 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP1 TP0] Init torch distributed ends. elapsed=5.71 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP1 TP3] Init torch distributed ends. elapsed=5.47 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP0 TP2] Init torch distributed ends. elapsed=5.13 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP1 TP1] Init torch distributed ends. elapsed=4.99 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP0 TP1] Init torch distributed ends. elapsed=4.71 s, mem usage=1.37 GB
+[2026-05-25 06:56:25 PP0 TP3] Init torch distributed ends. elapsed=4.98 s, mem usage=1.37 GB
+[2026-05-25 06:56:26 PP1 TP0] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP1 TP0] Detected fp8 checkpoint.
+[2026-05-25 06:56:26 PP1 TP0] DeepSeek V4 requires different clamping for shared and routed experts. Shared experts fusion optimization is disabled.
+[2026-05-25 06:56:26 PP0 TP1] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP0 TP0] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP0 TP0] Detected fp8 checkpoint.
+[2026-05-25 06:56:26 PP0 TP0] DeepSeek V4 requires different clamping for shared and routed experts. Shared experts fusion optimization is disabled.
+[2026-05-25 06:56:26 PP1 TP3] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP1 TP2] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP0 TP3] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP1 TP1] Load weight begin. avail mem=93.37 GB
+[2026-05-25 06:56:26 PP0 TP2] Load weight begin. avail mem=93.37 GB
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+Multi-thread loading shards:   0% Completed | 0/46 [00:00<?, ?it/s][2026-05-25 06:56:30 PP0 TP1] Skip dequant fp8 wo_a
+[2026-05-25 06:56:30 PP1 TP0] Skip dequant fp8 wo_a
+Multi-thread loading shards:   4% Completed | 2/46 [00:03<01:09,  1.59s/it]Multi-thread loading shards: 100% Completed | 46/46 [00:03<00:00, 14.07it/s]
+[2026-05-25 06:56:30 PP0 TP0] Skip dequant fp8 wo_a
+[2026-05-25 06:56:31 PP1 TP3] Skip dequant fp8 wo_a
+[2026-05-25 06:56:31 PP0 TP2] Skip dequant fp8 wo_a
+[2026-05-25 06:56:31 PP0 TP3] Skip dequant fp8 wo_a
+[2026-05-25 06:56:31 PP1 TP1] Skip dequant fp8 wo_a
+[2026-05-25 06:56:31 PP1 TP2] Skip dequant fp8 wo_a
+[2026-05-25 06:56:40 PP0 TP1] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:40 PP0 TP1] Load weight end. elapsed=13.31 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=59.22 GB, mem usage=34.15 GB.
+[2026-05-25 06:56:40 PP0 TP2] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:40 PP0 TP2] Load weight end. elapsed=13.36 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=59.22 GB, mem usage=34.15 GB.
+[2026-05-25 06:56:40 PP0 TP0] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:40 PP0 TP0] Load weight end. elapsed=13.86 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=59.22 GB, mem usage=34.15 GB.
+[2026-05-25 06:56:40 PP0 TP3] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:40 PP0 TP3] Load weight end. elapsed=14.06 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=59.22 GB, mem usage=34.15 GB.
+[2026-05-25 06:56:40 PP0 TP0] Using KV cache dtype: torch.float8_e4m3fn
+[2026-05-25 06:56:41 PP1 TP0] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:41 PP1 TP0] Load weight end. elapsed=14.31 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=58.15 GB, mem usage=35.22 GB.
+[2026-05-25 06:56:41 PP1 TP3] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:41 PP1 TP3] Load weight end. elapsed=14.61 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=58.15 GB, mem usage=35.22 GB.
+[2026-05-25 06:56:41 PP1 TP2] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:41 PP1 TP2] Load weight end. elapsed=14.58 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=58.15 GB, mem usage=35.22 GB.
+[2026-05-25 06:56:42 PP1 TP1] Using FP8 KV cache but no scaling factors provided. Defaulting to scaling factors of 1.0. This may lead to less accurate results!
+[2026-05-25 06:56:42 PP1 TP1] Load weight end. elapsed=15.39 s, type=DeepseekV4ForCausalLM, quant=fp8, fmt=e4m3, avail mem=58.15 GB, mem usage=35.22 GB.
+[2026-05-25 06:56:42 PP1 TP0] Using KV cache dtype: torch.float8_e4m3fn
+[2026-05-25 06:56:42 PP1 TP1] DSV4 pool PP slice: rank=1 layers=[21,43) local=22/44
+[2026-05-25 06:56:42 PP1 TP3] DSV4 pool PP slice: rank=1 layers=[21,43) local=22/44
+[2026-05-25 06:56:42 PP1 TP0] DSV4 pool PP slice: rank=1 layers=[21,43) local=22/44
+[2026-05-25 06:56:42 PP1 TP2] DSV4 pool PP slice: rank=1 layers=[21,43) local=22/44
+[2026-05-25 06:56:42 PP1 TP1] DSV4 memory calculation: bytes_per_full_token=8513.59, available_bytes=37.60 GB, full_token=4741632
+[2026-05-25 06:56:42 PP1 TP1] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP1 TP3] DSV4 memory calculation: bytes_per_full_token=8513.59, available_bytes=37.60 GB, full_token=4741632
+[2026-05-25 06:56:42 PP1 TP0] DSV4 memory calculation: bytes_per_full_token=8513.59, available_bytes=37.60 GB, full_token=4741632
+[2026-05-25 06:56:42 PP0 TP0] DSV4 pool PP slice: rank=0 layers=[0,21) local=21/44
+[2026-05-25 06:56:42 PP1 TP3] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP1 TP0] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP1 TP2] DSV4 memory calculation: bytes_per_full_token=8513.59, available_bytes=37.60 GB, full_token=4741632
+[2026-05-25 06:56:42 PP1 TP2] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP0 TP0] DSV4 memory calculation: bytes_per_full_token=7383.86, available_bytes=37.60 GB, full_token=5467136
+[2026-05-25 06:56:42 PP0 TP0] DSV4 pool sizes: full=5467136, swa=546560, c4=1366784, c128=42712, c4_state=34160, c128_state=546560
+[2026-05-25 06:56:42 PP0 TP1] DSV4 pool PP slice: rank=0 layers=[0,21) local=21/44
+[2026-05-25 06:56:42 PP0 TP3] DSV4 pool PP slice: rank=0 layers=[0,21) local=21/44
+[2026-05-25 06:56:42 PP0 TP2] DSV4 pool PP slice: rank=0 layers=[0,21) local=21/44
+[2026-05-25 06:56:42 PP0 TP1] DSV4 memory calculation: bytes_per_full_token=7383.86, available_bytes=37.60 GB, full_token=5467136
+[2026-05-25 06:56:42 PP0 TP1] DSV4 pool sizes: full=5467136, swa=546560, c4=1366784, c128=42712, c4_state=34160, c128_state=546560
+[2026-05-25 06:56:42 PP0 TP3] DSV4 memory calculation: bytes_per_full_token=7383.86, available_bytes=37.60 GB, full_token=5467136
+[2026-05-25 06:56:42 PP0 TP3] DSV4 pool sizes: full=5467136, swa=546560, c4=1366784, c128=42712, c4_state=34160, c128_state=546560
+[2026-05-25 06:56:42 PP0 TP2] DSV4 memory calculation: bytes_per_full_token=7383.86, available_bytes=37.60 GB, full_token=5467136
+[2026-05-25 06:56:42 PP0 TP2] DSV4 pool sizes: full=5467136, swa=546560, c4=1366784, c128=42712, c4_state=34160, c128_state=546560
+[2026-05-25 06:56:42 PP0 TP0] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP0 TP3] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP0 TP2] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP0 TP1] DSV4 pool sizes: full=4741632, swa=474112, c4=1185408, c128=37044, c4_state=29632, c128_state=474112
+[2026-05-25 06:56:42 PP1 TP1] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP0 TP0] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP1 TP3] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP1 TP2] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP0 TP3] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP0 TP1] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP0 TP2] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP1 TP0] Initialize DeepSeekV4TokenToKVPool with max_num_reqs=128 swa_size=474112 c4_size=1185408 c4_logical_size=1185408 c128_size=37044 c4_state_pool_size=29632 c128_state_pool_size=474112
+[2026-05-25 06:56:42 PP0 TP0] Memory pool end. avail mem=25.88 GB
+[2026-05-25 06:56:42 PP0 TP1] Memory pool end. avail mem=25.88 GB
+[2026-05-25 06:56:42 PP1 TP1] Memory pool end. avail mem=19.79 GB
+[2026-05-25 06:56:42 PP1 TP2] Memory pool end. avail mem=19.79 GB
+[2026-05-25 06:56:42 PP0 TP2] Memory pool end. avail mem=25.88 GB
+[2026-05-25 06:56:42 PP0 TP3] Memory pool end. avail mem=25.88 GB
+[2026-05-25 06:56:42 PP1 TP0] Memory pool end. avail mem=19.79 GB
+[2026-05-25 06:56:42 PP1 TP3] Memory pool end. avail mem=19.79 GB
+[2026-05-25 06:56:42 PP0 TP0] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP0 TP0] Capture cuda graph begin. This can take up to several minutes. avail mem=25.78 GB
+[2026-05-25 06:56:42 PP0 TP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+[2026-05-25 06:56:42 PP0 TP1] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP0 TP1] Capture cuda graph begin. This can take up to several minutes. avail mem=25.78 GB
+[2026-05-25 06:56:42 PP1 TP2] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP1 TP1] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP1 TP2] Capture cuda graph begin. This can take up to several minutes. avail mem=19.69 GB
+[2026-05-25 06:56:42 PP1 TP1] Capture cuda graph begin. This can take up to several minutes. avail mem=19.69 GB
+[2026-05-25 06:56:42 PP1 TP0] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP0 TP2] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP1 TP0] Capture cuda graph begin. This can take up to several minutes. avail mem=19.69 GB
+[2026-05-25 06:56:42 PP1 TP0] Capture cuda graph bs [1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128]
+[2026-05-25 06:56:42 PP0 TP2] Capture cuda graph begin. This can take up to several minutes. avail mem=25.78 GB
+[2026-05-25 06:56:42 PP0 TP3] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP0 TP3] Capture cuda graph begin. This can take up to several minutes. avail mem=25.78 GB
+[2026-05-25 06:56:42 PP1 TP3] Using DeepseekV4AttnBackend for dsv4 attention backend (CUDA).
+[2026-05-25 06:56:42 PP1 TP3] Capture cuda graph begin. This can take up to several minutes. avail mem=19.69 GB
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=19.63 GB):   0%|          | 0/20 [00:00<?, ?it/s]  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=25.72 GB):   0%|          | 0/20 [00:00<?, ?it/s]2026-05-25 06:56:45,163 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP1 TP0] Unexpected error during package walk: cutlass.cute.experimental
+2026-05-25 06:56:45,192 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP1 TP3] Unexpected error during package walk: cutlass.cute.experimental
+2026-05-25 06:56:45,299 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP1 TP2] Unexpected error during package walk: cutlass.cute.experimental
+2026-05-25 06:56:45,391 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP1 TP1] Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP0 TP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-05-25 06:56:45 PP0 TP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=1536, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-05-25 06:56:45 PP0 TP0] Required memory for warmup: 0.060546875GB, Available memory: 25.6475830078125GB
+
+DeepGEMM warmup:   0%|          | 0/2560 [00:00<?, ?it/s][A
+DeepGEMM warmup:  70%|██████▉   | 1783/2560 [00:00<00:00, 17204.40it/s][A2026-05-25 06:56:45,568 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP0 TP2] Unexpected error during package walk: cutlass.cute.experimental
+2026-05-25 06:56:45,583 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP0 TP3] Unexpected error during package walk: cutlass.cute.experimental
+2026-05-25 06:56:45,583 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:45 PP0 TP1] Unexpected error during package walk: cutlass.cute.experimental
+DeepGEMM warmup: 100%|██████████| 2560/2560 [00:00<00:00, 12758.31it/s]
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+2026-05-25 06:56:46,151 - CUTE_DSL - WARNING - [handle_import_error] - Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:46 PP0 TP0] Unexpected error during package walk: cutlass.cute.experimental
+[2026-05-25 06:56:46 PP1 TP3] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP3] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP1] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP1] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP2] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP2] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP0] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP1 TP0] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:46 PP0 TP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-05-25 06:56:46 PP0 TP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=8192, K=1024, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-05-25 06:56:46 PP0 TP0] Required memory for warmup: 0.140625GB, Available memory: 25.6456298828125GB
+
+DeepGEMM warmup:   0%|          | 0/2560 [00:00<?, ?it/s][A
+DeepGEMM warmup:  73%|███████▎  | 1862/2560 [00:00<00:00, 18603.61it/s][ADeepGEMM warmup: 100%|██████████| 2560/2560 [00:00<00:00, 9352.57it/s] 
+[2026-05-25 06:56:47 PP0 TP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-05-25 06:56:47 PP0 TP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=2048, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-05-25 06:56:47 PP0 TP0] Required memory for warmup: 0.0859375GB, Available memory: 25.6143798828125GB
+
+DeepGEMM warmup:   0%|          | 0/2560 [00:00<?, ?it/s][A
+DeepGEMM warmup:  75%|███████▍  | 1917/2560 [00:00<00:00, 19166.55it/s][ADeepGEMM warmup: 100%|██████████| 2560/2560 [00:00<00:00, 10048.16it/s]
+Capturing batches (bs=128 avail_mem=19.63 GB):   5%|▌         | 1/20 [00:04<01:28,  4.68s/it]Capturing batches (bs=120 avail_mem=19.30 GB):   5%|▌         | 1/20 [00:04<01:28,  4.68s/it][2026-05-25 06:56:47 PP0 TP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-05-25 06:56:47 PP0 TP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=1024, K=4096, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-05-25 06:56:47 PP0 TP0] Required memory for warmup: 0.05078125GB, Available memory: 25.6143798828125GB
+
+DeepGEMM warmup:   0%|          | 0/2560 [00:00<?, ?it/s][AFailed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+
+DeepGEMM warmup:  90%|█████████ | 2312/2560 [00:00<00:00, 23110.60it/s][A[2026-05-25 06:56:47 PP0 TP2] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:47 PP0 TP2] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+DeepGEMM warmup: 100%|██████████| 2560/2560 [00:00<00:00, 18498.63it/s]
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+[2026-05-25 06:56:47 PP0 TP1] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:47 PP0 TP1] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+Failed to load legacy DeepGEMM A100 Triton kernels: dynamic module does not define module export function (PyInit__C)
+[2026-05-25 06:56:47 PP0 TP0] Entering DeepGEMM JIT Pre-Compile session. It may take a long time (typically 10-20 mins) if you have not run `sglang.compile_deep_gemm`. It is recommended to run `sglang.compile_deep_gemm` with same args as `sglang.launch_server` for pre-compilation to reduce the overhead if you have not run it before. For example: `python3 -m sglang.compile_deep_gemm --model deepseek-ai/DeepSeek-V3 --tp 8 --trust-remote-code`
+[2026-05-25 06:56:47 PP0 TP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16> N=4096, K=512, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-05-25 06:56:47 PP0 TP0] Required memory for warmup: 0.068359375GB, Available memory: 25.6143798828125GB
+
+DeepGEMM warmup:   0%|          | 0/2560 [00:00<?, ?it/s][A[2026-05-25 06:56:47 PP0 TP3] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:47 PP0 TP3] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+DeepGEMM warmup: 100%|██████████| 2560/2560 [00:00<00:00, 28384.39it/s]
+Capturing batches (bs=120 avail_mem=19.30 GB):  10%|█         | 2/20 [00:05<00:39,  2.20s/it]Capturing batches (bs=112 avail_mem=19.29 GB):  10%|█         | 2/20 [00:05<00:39,  2.20s/it][2026-05-25 06:56:48 PP0 TP0] Using default MoE kernel config. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128].json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+[2026-05-25 06:56:48 PP0 TP0] Using MoE kernel config with down_moe=False. Performance might be sub-optimal! Config file not found at /root/sglang/python/sglang/srt/layers/moe/moe_runner/triton_utils/configs/triton_3_6_0/E=256,N=512,device_name=NVIDIA_H20,dtype=fp8_w8a8,block_shape=[128, 128]_down.json, you can create them with https://github.com/sgl-project/sglang/tree/main/benchmark/kernels/fused_moe_triton
+Capturing batches (bs=112 avail_mem=19.29 GB):  15%|█▌        | 3/20 [00:05<00:24,  1.41s/it]Capturing batches (bs=104 avail_mem=19.27 GB):  15%|█▌        | 3/20 [00:05<00:24,  1.41s/it]Capturing batches (bs=104 avail_mem=19.27 GB):  20%|██        | 4/20 [00:06<00:17,  1.08s/it]Capturing batches (bs=96 avail_mem=19.26 GB):  20%|██        | 4/20 [00:06<00:17,  1.08s/it] Capturing batches (bs=128 avail_mem=25.72 GB):   5%|▌         | 1/20 [00:06<02:00,  6.36s/it]Capturing batches (bs=120 avail_mem=25.38 GB):   5%|▌         | 1/20 [00:06<02:00,  6.36s/it]Capturing batches (bs=96 avail_mem=19.26 GB):  25%|██▌       | 5/20 [00:06<00:12,  1.17it/s]Capturing batches (bs=88 avail_mem=19.25 GB):  25%|██▌       | 5/20 [00:06<00:12,  1.17it/s]Capturing batches (bs=120 avail_mem=25.38 GB):  10%|█         | 2/20 [00:06<00:52,  2.92s/it]Capturing batches (bs=112 avail_mem=25.36 GB):  10%|█         | 2/20 [00:06<00:52,  2.92s/it]Capturing batches (bs=88 avail_mem=19.25 GB):  30%|███       | 6/20 [00:07<00:10,  1.39it/s]Capturing batches (bs=80 avail_mem=19.24 GB):  30%|███       | 6/20 [00:07<00:10,  1.39it/s]Capturing batches (bs=112 avail_mem=25.36 GB):  15%|█▌        | 3/20 [00:07<00:30,  1.78s/it]Capturing batches (bs=104 avail_mem=25.35 GB):  15%|█▌        | 3/20 [00:07<00:30,  1.78s/it]Capturing batches (bs=80 avail_mem=19.24 GB):  35%|███▌      | 7/20 [00:07<00:08,  1.59it/s]Capturing batches (bs=72 avail_mem=19.23 GB):  35%|███▌      | 7/20 [00:07<00:08,  1.59it/s]Capturing batches (bs=104 avail_mem=25.35 GB):  20%|██        | 4/20 [00:07<00:19,  1.24s/it]Capturing batches (bs=96 avail_mem=25.34 GB):  20%|██        | 4/20 [00:07<00:19,  1.24s/it] Capturing batches (bs=72 avail_mem=19.23 GB):  40%|████      | 8/20 [00:07<00:06,  1.75it/s]Capturing batches (bs=64 avail_mem=19.21 GB):  40%|████      | 8/20 [00:07<00:06,  1.75it/s]Capturing batches (bs=96 avail_mem=25.34 GB):  25%|██▌       | 5/20 [00:08<00:14,  1.06it/s]Capturing batches (bs=88 avail_mem=25.33 GB):  25%|██▌       | 5/20 [00:08<00:14,  1.06it/s]Capturing batches (bs=64 avail_mem=19.21 GB):  45%|████▌     | 9/20 [00:08<00:06,  1.75it/s]Capturing batches (bs=56 avail_mem=19.03 GB):  45%|████▌     | 9/20 [00:08<00:06,  1.75it/s]Capturing batches (bs=88 avail_mem=25.33 GB):  30%|███       | 6/20 [00:08<00:10,  1.30it/s]Capturing batches (bs=80 avail_mem=25.32 GB):  30%|███       | 6/20 [00:08<00:10,  1.30it/s]Capturing batches (bs=56 avail_mem=19.03 GB):  50%|█████     | 10/20 [00:09<00:05,  1.87it/s]Capturing batches (bs=48 avail_mem=19.01 GB):  50%|█████     | 10/20 [00:09<00:05,  1.87it/s]Capturing batches (bs=80 avail_mem=25.32 GB):  35%|███▌      | 7/20 [00:08<00:08,  1.53it/s]Capturing batches (bs=72 avail_mem=25.30 GB):  35%|███▌      | 7/20 [00:08<00:08,  1.53it/s]Capturing batches (bs=72 avail_mem=25.30 GB):  40%|████      | 8/20 [00:09<00:06,  1.73it/s]Capturing batches (bs=64 avail_mem=25.29 GB):  40%|████      | 8/20 [00:09<00:06,  1.73it/s]Capturing batches (bs=48 avail_mem=19.01 GB):  55%|█████▌    | 11/20 [00:09<00:05,  1.65it/s]Capturing batches (bs=40 avail_mem=18.99 GB):  55%|█████▌    | 11/20 [00:09<00:05,  1.65it/s]Capturing batches (bs=64 avail_mem=25.29 GB):  45%|████▌     | 9/20 [00:09<00:06,  1.77it/s]Capturing batches (bs=56 avail_mem=25.11 GB):  45%|████▌     | 9/20 [00:09<00:06,  1.77it/s]Capturing batches (bs=40 avail_mem=18.99 GB):  60%|██████    | 12/20 [00:10<00:04,  1.78it/s]Capturing batches (bs=32 avail_mem=18.98 GB):  60%|██████    | 12/20 [00:10<00:04,  1.78it/s]Capturing batches (bs=56 avail_mem=25.11 GB):  50%|█████     | 10/20 [00:10<00:05,  1.90it/s]Capturing batches (bs=48 avail_mem=25.09 GB):  50%|█████     | 10/20 [00:10<00:05,  1.90it/s]Capturing batches (bs=32 avail_mem=18.98 GB):  65%|██████▌   | 13/20 [00:10<00:04,  1.63it/s]Capturing batches (bs=24 avail_mem=18.96 GB):  65%|██████▌   | 13/20 [00:10<00:04,  1.63it/s]Capturing batches (bs=48 avail_mem=25.09 GB):  55%|█████▌    | 11/20 [00:11<00:05,  1.63it/s]Capturing batches (bs=40 avail_mem=25.07 GB):  55%|█████▌    | 11/20 [00:11<00:05,  1.63it/s]Capturing batches (bs=24 avail_mem=18.96 GB):  70%|███████   | 14/20 [00:11<00:03,  1.67it/s]Capturing batches (bs=16 avail_mem=18.94 GB):  70%|███████   | 14/20 [00:11<00:03,  1.67it/s]Capturing batches (bs=40 avail_mem=25.07 GB):  60%|██████    | 12/20 [00:11<00:04,  1.79it/s]Capturing batches (bs=32 avail_mem=25.06 GB):  60%|██████    | 12/20 [00:11<00:04,  1.79it/s]Capturing batches (bs=16 avail_mem=18.94 GB):  75%|███████▌  | 15/20 [00:11<00:02,  1.80it/s]Capturing batches (bs=12 avail_mem=18.92 GB):  75%|███████▌  | 15/20 [00:11<00:02,  1.80it/s]Capturing batches (bs=32 avail_mem=25.06 GB):  65%|██████▌   | 13/20 [00:12<00:03,  1.83it/s]Capturing batches (bs=24 avail_mem=25.04 GB):  65%|██████▌   | 13/20 [00:12<00:03,  1.83it/s]Capturing batches (bs=12 avail_mem=18.92 GB):  80%|████████  | 16/20 [00:12<00:02,  1.90it/s]Capturing batches (bs=8 avail_mem=18.91 GB):  80%|████████  | 16/20 [00:12<00:02,  1.90it/s] Capturing batches (bs=24 avail_mem=25.04 GB):  70%|███████   | 14/20 [00:12<00:03,  1.83it/s]Capturing batches (bs=16 avail_mem=25.02 GB):  70%|███████   | 14/20 [00:12<00:03,  1.83it/s]Capturing batches (bs=8 avail_mem=18.91 GB):  85%|████████▌ | 17/20 [00:12<00:01,  1.93it/s]Capturing batches (bs=4 avail_mem=18.89 GB):  85%|████████▌ | 17/20 [00:12<00:01,  1.93it/s]Capturing batches (bs=16 avail_mem=25.02 GB):  75%|███████▌  | 15/20 [00:13<00:02,  1.67it/s]Capturing batches (bs=12 avail_mem=25.00 GB):  75%|███████▌  | 15/20 [00:13<00:02,  1.67it/s]Capturing batches (bs=4 avail_mem=18.89 GB):  90%|█████████ | 18/20 [00:13<00:01,  1.88it/s]Capturing batches (bs=2 avail_mem=18.87 GB):  90%|█████████ | 18/20 [00:13<00:01,  1.88it/s]Capturing batches (bs=12 avail_mem=25.00 GB):  80%|████████  | 16/20 [00:13<00:02,  1.79it/s]Capturing batches (bs=8 avail_mem=24.98 GB):  80%|████████  | 16/20 [00:13<00:02,  1.79it/s] Capturing batches (bs=2 avail_mem=18.87 GB):  95%|█████████▌| 19/20 [00:13<00:00,  1.95it/s]Capturing batches (bs=1 avail_mem=18.85 GB):  95%|█████████▌| 19/20 [00:13<00:00,  1.95it/s]Capturing batches (bs=8 avail_mem=24.98 GB):  85%|████████▌ | 17/20 [00:14<00:01,  1.91it/s]Capturing batches (bs=4 avail_mem=24.97 GB):  85%|████████▌ | 17/20 [00:14<00:01,  1.91it/s]Capturing batches (bs=1 avail_mem=18.85 GB): 100%|██████████| 20/20 [00:14<00:00,  1.61it/s]Capturing batches (bs=1 avail_mem=18.85 GB): 100%|██████████| 20/20 [00:14<00:00,  1.35it/s]
+Capturing batches (bs=4 avail_mem=24.97 GB):  90%|█████████ | 18/20 [00:14<00:01,  2.00it/s]Capturing batches (bs=2 avail_mem=24.95 GB):  90%|█████████ | 18/20 [00:14<00:01,  2.00it/s][2026-05-25 06:56:57 PP1 TP0] Registering 440 cuda graph addresses
+Capturing batches (bs=2 avail_mem=24.95 GB):  95%|█████████▌| 19/20 [00:15<00:00,  2.05it/s]Capturing batches (bs=1 avail_mem=24.93 GB):  95%|█████████▌| 19/20 [00:15<00:00,  2.05it/s][2026-05-25 06:56:58 PP1 TP3] Capture cuda graph end. Time elapsed: 15.75 s. mem usage=0.85 GB. avail mem=18.84 GB.
+[2026-05-25 06:56:58 PP1 TP3] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:58 PP1 TP2] Capture cuda graph end. Time elapsed: 15.77 s. mem usage=0.85 GB. avail mem=18.84 GB.
+[2026-05-25 06:56:58 PP1 TP2] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:58 PP1 TP1] Capture cuda graph end. Time elapsed: 15.82 s. mem usage=0.85 GB. avail mem=18.84 GB.
+[2026-05-25 06:56:58 PP1 TP1] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:58 PP1 TP0] Capture cuda graph end. Time elapsed: 15.87 s. mem usage=0.85 GB. avail mem=18.84 GB.
+[2026-05-25 06:56:58 PP1 TP0] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:58 PP1 TP2] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:58 PP1 TP3] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:58 PP1 TP1] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:56:59 PP1 TP0] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+Capturing batches (bs=1 avail_mem=24.93 GB): 100%|██████████| 20/20 [00:16<00:00,  1.61it/s]Capturing batches (bs=1 avail_mem=24.93 GB): 100%|██████████| 20/20 [00:16<00:00,  1.24it/s]
+[2026-05-25 06:56:59 PP0 TP0] Registering 430 cuda graph addresses
+[2026-05-25 06:56:59 PP1 TP2] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:59 PP1 TP3] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:59 PP1 TP1] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:59 PP0 TP1] Capture cuda graph end. Time elapsed: 17.05 s. mem usage=0.86 GB. avail mem=24.92 GB.
+[2026-05-25 06:56:59 PP0 TP1] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:59 PP1 TP0] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:56:59 PP0 TP0] Capture cuda graph end. Time elapsed: 17.18 s. mem usage=0.87 GB. avail mem=24.92 GB.
+[2026-05-25 06:56:59 PP0 TP0] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:59 PP0 TP3] Capture cuda graph end. Time elapsed: 17.22 s. mem usage=0.86 GB. avail mem=24.92 GB.
+[2026-05-25 06:56:59 PP0 TP3] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:56:59 PP0 TP2] Capture cuda graph end. Time elapsed: 17.23 s. mem usage=0.86 GB. avail mem=24.92 GB.
+[2026-05-25 06:56:59 PP0 TP2] Disable piecewise CUDA graph because --disable-piecewise-cuda-graph is set
+[2026-05-25 06:57:00 PP1 TP2] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:00 PP0 TP1] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:57:00 PP1 TP3] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:00 PP1 TP1] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:00 PP0 TP0] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:57:00 PP1 TP0] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:00 PP0 TP3] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:57:00 PP0 TP2] Tokenizer loaded as generic TokenizersBackend for /root/models/DeepSeek-V4-Flash-FP8, retrying with use_fast=False
+[2026-05-25 06:57:00 PP0 TP1] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:57:00 PP0 TP0] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:57:01 PP0 TP2] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:57:01 PP0 TP3] Loading tokenizer for /root/models/DeepSeek-V4-Flash-FP8 directly as PreTrainedTokenizerFast (bypassing AutoTokenizer)
+[2026-05-25 06:57:01 PP0 TP1] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:01 PP0 TP0] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:01 PP0 TP2] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:01 PP0 TP3] Tokenizer for /root/models/DeepSeek-V4-Flash-FP8 is still TokenizersBackend after retries with --trust-remote-code. Model-specific tokenizer attributes may be missing.
+[2026-05-25 06:57:01 PP1 TP0] max_total_num_tokens=4741632, chunked_prefill_size=8192, max_prefill_tokens=16384, max_running_requests=128, context_len=1048576, available_gpu_mem=18.84 GB
+[2026-05-25 06:57:01 PP0 TP0] max_total_num_tokens=4741632, chunked_prefill_size=8192, max_prefill_tokens=16384, max_running_requests=128, context_len=1048576, available_gpu_mem=24.92 GB
+[2026-05-25 06:57:02] INFO:     Started server process [1864890]
+[2026-05-25 06:57:02] INFO:     Waiting for application startup.
+[2026-05-25 06:57:02] Using default chat sampling params from model generation config: {'temperature': 1.0, 'top_p': 1.0}
+[2026-05-25 06:57:02] INFO:     Application startup complete.
+[2026-05-25 06:57:02] INFO:     Uvicorn running on http://0.0.0.0:30000 (Press CTRL+C to quit)
+[2026-05-25 06:57:03] INFO:     127.0.0.1:42174 - "GET /model_info HTTP/1.1" 200 OK
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+[2026-05-25 06:57:05] INFO:     127.0.0.1:42492 - "GET /health HTTP/1.1" 503 Service Unavailable
+[2026-05-25 06:57:10] INFO:     127.0.0.1:42740 - "GET /health HTTP/1.1" 503 Service Unavailable
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+[rank5]:[W525 06:57:10.676641854 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank6]:[W525 06:57:10.676898048 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank1]:[W525 06:57:10.677267279 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank2]:[W525 06:57:10.677548543 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+[rank7]:[W525 06:57:10.679417449 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+/root/sglang/python/sglang/srt/distributed/parallel_state.py:1123: UserWarning: The given buffer is not writable, and PyTorch does not support non-writable tensors. This means you can write to the underlying (supposedly non-writable) buffer using the tensor. You may want to copy the buffer to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:1586.)
+  object_tensor = torch.frombuffer(pickle.dumps(obj), dtype=torch.uint8)
+[rank3]:[W525 06:57:10.679970006 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank4]:[W525 06:57:10.680136202 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank0]:[W525 06:57:10.680767338 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[2026-05-25 06:57:11 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 26.72
+[rank0]:[W525 06:57:11.567026398 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank4]:[W525 06:57:11.573407760 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank2]:[W525 06:57:11.667315722 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank6]:[W525 06:57:11.675572319 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[2026-05-25 06:57:11 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 26.13
+[rank3]:[W525 06:57:11.765584732 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank7]:[W525 06:57:11.766080220 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank1]:[W525 06:57:11.867183275 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[rank5]:[W525 06:57:11.867536246 ProcessGroupNCCL.cpp:4094] Warning: An unbatched P2P op (send/recv) was called on this ProcessGroup with size 2.  In lazy initialization mode, this will result in a new 2-rank NCCL communicator to be created. (function operator())
+[2026-05-25 06:57:12] INFO:     127.0.0.1:42176 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:12] The server is fired up and ready to roll!
+[2026-05-25 06:57:15 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 59.25
+[2026-05-25 06:57:15 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 61.60
+[2026-05-25 06:57:16] INFO:     127.0.0.1:42962 - "GET /health HTTP/1.1" 200 OK
+[2026-05-25 06:57:21] INFO:     10.246.43.19:52196 - "GET /metrics HTTP/1.1" 404 Not Found
+/root/sglang/.venv-cu128/lib/python3.12/site-packages/fastapi/routing.py:120: FastAPIDeprecationWarning: ORJSONResponse is deprecated, FastAPI now serializes data directly to JSON bytes via Pydantic when a return type or response model is set, which is faster and doesn't need a custom response class. Read more in the FastAPI docs: https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model and https://fastapi.tiangolo.com/tutorial/response-model/
+  response = await f(request)
+[2026-05-25 06:57:22] INFO:     127.0.0.1:42980 - "GET /v1/models HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42984 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42986 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42988 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42990 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42992 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42994 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42996 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:23] INFO:     127.0.0.1:42998 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:24 PP0 TP0] Prefill batch, #new-seq: 8, #new-token: 2048, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 239.26
+[2026-05-25 06:57:24 PP1 TP0] Prefill batch, #new-seq: 8, #new-token: 2048, #cached-token: 0, full token usage: 0.00, swa token usage: 0.00, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 239.07
+[2026-05-25 06:57:24 PP0 TP0] Cache flushed successfully!
+[2026-05-25 06:57:24] INFO:     127.0.0.1:43134 - "POST /flush_cache HTTP/1.1" 200 OK
+[2026-05-25 06:57:24 PP1 TP0] Cache flushed successfully!
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43140 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43142 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43144 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43146 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43148 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43150 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43152 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43154 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43156 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43158 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43160 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43162 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43164 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43166 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43168 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43170 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43172 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43174 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43176 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43178 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43180 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43182 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43184 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43186 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43188 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43190 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43192 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43194 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43196 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43198 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43200 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43202 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43204 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43206 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43208 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43210 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43212 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43214 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43216 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43218 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43220 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43222 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43224 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43226 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43228 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43230 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43232 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43234 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43236 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43238 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43240 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43242 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43244 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43246 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43248 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43250 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43252 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43254 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43256 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43258 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43260 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43262 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43264 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:25] INFO:     127.0.0.1:43266 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:26 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.02, #running-req: 0, #queue-req: 41, #pending-token: 0, cuda graph: False, input throughput (token/s): 154.75
+[2026-05-25 06:57:26 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.00, swa token usage: 0.02, #running-req: 0, #queue-req: 41, #pending-token: 0, cuda graph: False, input throughput (token/s): 122.27
+[2026-05-25 06:57:26 PP0 TP0] Prefill batch, #new-seq: 22, #new-token: 8192, #cached-token: 0, full token usage: 0.00, swa token usage: 0.04, #running-req: 0, #queue-req: 21, #pending-token: 11800, cuda graph: False, input throughput (token/s): 18129.43
+[2026-05-25 06:57:26 PP0 TP0] Prefill batch, #new-seq: 21, #new-token: 8192, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 1, #queue-req: 0, #pending-token: 5223, cuda graph: False, input throughput (token/s): 32619.93
+[2026-05-25 06:57:26 PP1 TP0] Prefill batch, #new-seq: 22, #new-token: 8192, #cached-token: 0, full token usage: 0.00, swa token usage: 0.04, #running-req: 0, #queue-req: 21, #pending-token: 11800, cuda graph: False, input throughput (token/s): 32168.43
+[2026-05-25 06:57:26 PP0 TP0] Prefill batch, #new-seq: 22, #new-token: 8192, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 21, #queue-req: 0, #pending-token: 199, cuda graph: False, input throughput (token/s): 40767.99
+[2026-05-25 06:57:26 PP1 TP0] Prefill batch, #new-seq: 21, #new-token: 8192, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 1, #queue-req: 0, #pending-token: 5223, cuda graph: False, input throughput (token/s): 40746.79
+[2026-05-25 06:57:27 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 21, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1386.08
+[2026-05-25 06:57:27 PP1 TP0] Prefill batch, #new-seq: 22, #new-token: 8192, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 21, #queue-req: 0, #pending-token: 199, cuda graph: False, input throughput (token/s): 44101.74
+[2026-05-25 06:57:27 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.05, #running-req: 21, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 16422.76
+[2026-05-25 06:57:27] INFO:     127.0.0.1:43270 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:27] INFO:     127.0.0.1:43272 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:27 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 22, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1807.91
+[2026-05-25 06:57:27 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 22, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1827.86
+[2026-05-25 06:57:27] INFO:     127.0.0.1:43274 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:27] INFO:     127.0.0.1:43276 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:27 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2153.12
+[2026-05-25 06:57:27 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1730.21
+[2026-05-25 06:57:27 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1754.50
+[2026-05-25 06:57:28 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2876.10
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43278 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43280 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43282 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1641.66
+[2026-05-25 06:57:28 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1055.00
+[2026-05-25 06:57:28 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 37, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5443.54
+[2026-05-25 06:57:28 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 37, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 73867.14
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43286 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1300.96
+[2026-05-25 06:57:28 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1296.60
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43290 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1272.25
+[2026-05-25 06:57:28 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1276.68
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43292 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:28] INFO:     127.0.0.1:43294 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:29 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1261.43
+[2026-05-25 06:57:29 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 960.55
+[2026-05-25 06:57:29 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6621.44
+[2026-05-25 06:57:29 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 35067.58
+[2026-05-25 06:57:29] INFO:     127.0.0.1:43296 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:29] INFO:     127.0.0.1:43298 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:29 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1127.81
+[2026-05-25 06:57:29 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 987.71
+[2026-05-25 06:57:29 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1618.99
+[2026-05-25 06:57:29 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2696.66
+[2026-05-25 06:57:29 PP0 TP0] Decode batch, #running-req: 37, #full token: 27648, full token usage: 0.01, #swa token: 27648, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 47.17, #queue-req: 0
+[2026-05-25 06:57:29 PP1 TP0] Decode batch, #running-req: 37, #full token: 27648, full token usage: 0.01, #swa token: 27648, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 47.06, #queue-req: 0
+[2026-05-25 06:57:29] INFO:     127.0.0.1:43302 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:29 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2488.73
+[2026-05-25 06:57:29 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2496.54
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43304 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 36, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2689.66
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 36, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2702.91
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43306 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43308 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43312 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 37, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2791.44
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 37, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2108.45
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3513.67
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3390.55
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3370.50
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 18091.96
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43314 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1464.09
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1465.22
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43318 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:30 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1279.82
+[2026-05-25 06:57:30 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1273.78
+[2026-05-25 06:57:30] INFO:     127.0.0.1:43322 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31] INFO:     127.0.0.1:43324 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1895.35
+[2026-05-25 06:57:31 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1536.12
+[2026-05-25 06:57:31 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1444.18
+[2026-05-25 06:57:31 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2211.88
+[2026-05-25 06:57:31] INFO:     127.0.0.1:43326 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31] INFO:     127.0.0.1:43328 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 36, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2486.94
+[2026-05-25 06:57:31 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 36, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2500.01
+[2026-05-25 06:57:31] INFO:     127.0.0.1:43334 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31 PP0 TP0] Decode batch, #running-req: 38, #full token: 27136, full token usage: 0.01, #swa token: 27136, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 616.24, #queue-req: 0
+[2026-05-25 06:57:31] INFO:     127.0.0.1:43336 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:31 PP1 TP0] Decode batch, #running-req: 38, #full token: 27136, full token usage: 0.01, #swa token: 27136, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 597.17, #queue-req: 0
+[2026-05-25 06:57:32 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1385.99
+[2026-05-25 06:57:32 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 955.81
+[2026-05-25 06:57:32 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1415.93
+[2026-05-25 06:57:32 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 16682.24
+[2026-05-25 06:57:32] INFO:     127.0.0.1:43338 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:32 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1285.24
+[2026-05-25 06:57:32 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1291.50
+[2026-05-25 06:57:32] INFO:     127.0.0.1:43342 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:32 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 861.03
+[2026-05-25 06:57:32 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 867.03
+[2026-05-25 06:57:32] INFO:     127.0.0.1:43344 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2246.03
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2218.86
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43346 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1479.15
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 25, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1479.45
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43348 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2421.11
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2430.42
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43350 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1395.56
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1406.63
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43352 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43354 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2362.53
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1835.56
+[2026-05-25 06:57:33 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6858.53
+[2026-05-25 06:57:33 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 40564.17
+[2026-05-25 06:57:33 PP0 TP0] Decode batch, #running-req: 40, #full token: 27904, full token usage: 0.01, #swa token: 27904, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 615.26, #queue-req: 0
+[2026-05-25 06:57:33 PP1 TP0] Decode batch, #running-req: 40, #full token: 27904, full token usage: 0.01, #swa token: 27904, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 636.01, #queue-req: 0
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43356 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:33] INFO:     127.0.0.1:43358 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1866.71
+[2026-05-25 06:57:34 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1866.47
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43360 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43362 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 22, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4492.81
+[2026-05-25 06:57:34 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 22, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4442.28
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43364 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43366 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43368 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1023.62
+[2026-05-25 06:57:34 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 831.21
+[2026-05-25 06:57:34 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 23, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6978.49
+[2026-05-25 06:57:34 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 23, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 32958.03
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43372 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43374 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:34] INFO:     127.0.0.1:43376 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1717.57
+[2026-05-25 06:57:35 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 39, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1102.58
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2820.44
+[2026-05-25 06:57:35 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7066.07
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7072.28
+[2026-05-25 06:57:35 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 37967.42
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43378 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43380 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2563.87
+[2026-05-25 06:57:35 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 40, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1944.35
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 23, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3313.57
+[2026-05-25 06:57:35 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 23, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 16378.04
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43386 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43388 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43390 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43392 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35] INFO:     127.0.0.1:43394 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:35 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2716.87
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2994.73
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 24, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1485.80
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 38, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2889.64
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4303.84
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 26, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 46979.46
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43396 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43398 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43400 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4159.47
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 2, #new-token: 768, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 27, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3103.79
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3254.14
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 18176.11
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43404 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36 PP0 TP0] Decode batch, #running-req: 35, #full token: 26368, full token usage: 0.01, #swa token: 26368, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 462.29, #queue-req: 0
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43434 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43436 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43438 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 28, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2062.03
+[2026-05-25 06:57:36 PP1 TP0] Decode batch, #running-req: 35, #full token: 26368, full token usage: 0.01, #swa token: 26368, swa token usage: 0.06, cuda graph: True, gen throughput (token/s): 451.57, #queue-req: 0
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 28, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1641.93
+[2026-05-25 06:57:36] INFO:     127.0.0.1:43442 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:36 PP0 TP0] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 29, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6451.12
+[2026-05-25 06:57:36 PP1 TP0] Prefill batch, #new-seq: 3, #new-token: 1024, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 29, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6732.78
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 32, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1727.69
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 256, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 32, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2802.88
+[2026-05-25 06:57:37] INFO:     127.0.0.1:43444 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:37] INFO:     127.0.0.1:43446 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 33, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2914.69
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 33, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2212.35
+[2026-05-25 06:57:37] INFO:     127.0.0.1:43448 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 34, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3396.77
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 34, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3355.60
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3423.04
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5533.11
+[2026-05-25 06:57:37] INFO:     127.0.0.1:43450 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:37] INFO:     127.0.0.1:43452 - "POST /generate HTTP/1.1" 200 OK
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 28, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2249.07
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 28, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1761.53
+[2026-05-25 06:57:37 PP0 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6590.04
+[2026-05-25 06:57:37 PP1 TP0] Prefill batch, #new-seq: 1, #new-token: 512, #cached-token: 0, full token usage: 0.01, swa token usage: 0.06, #running-req: 35, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 32918.74
+[2026-05-25 06:57:38 PP0 TP0] Decode batch, #running-req: 19, #full token: 20480, full token usage: 0.00, #swa token: 20480, swa token usage: 0.04, cuda graph: True, gen throughput (token/s): 750.35, #queue-req: 0
+[2026-05-25 06:57:38 PP1 TP0] Decode batch, #running-req: 19, #full token: 20480, full token usage: 0.00, #swa token: 20480, swa token usage: 0.04, cuda graph: True, gen throughput (token/s): 781.86, #queue-req: 0
+[2026-05-25 06:57:38 PP0 TP0] Decode batch, #running-req: 13, #full token: 16128, full token usage: 0.00, #swa token: 16128, swa token usage: 0.03, cuda graph: True, gen throughput (token/s): 1581.46, #queue-req: 0
+[2026-05-25 06:57:38 PP1 TP0] Decode batch, #running-req: 13, #full token: 16128, full token usage: 0.00, #swa token: 16128, swa token usage: 0.03, cuda graph: True, gen throughput (token/s): 1583.94, #queue-req: 0
+[2026-05-25 06:57:39 PP0 TP0] Decode batch, #running-req: 8, #full token: 7424, full token usage: 0.00, #swa token: 7424, swa token usage: 0.02, cuda graph: True, gen throughput (token/s): 1289.11, #queue-req: 0
+[2026-05-25 06:57:39 PP1 TP0] Decode batch, #running-req: 8, #full token: 7424, full token usage: 0.00, #swa token: 7424, swa token usage: 0.02, cuda graph: True, gen throughput (token/s): 1300.16, #queue-req: 0
+[2026-05-25 06:57:39 PP0 TP0] Decode batch, #running-req: 3, #full token: 5120, full token usage: 0.00, #swa token: 5120, swa token usage: 0.01, cuda graph: True, gen throughput (token/s): 736.91, #queue-req: 0
+[2026-05-25 06:57:39 PP1 TP0] Decode batch, #running-req: 3, #full token: 5120, full token usage: 0.00, #swa token: 5120, swa token usage: 0.01, cuda graph: True, gen throughput (token/s): 738.26, #queue-req: 0
+[2026-05-25 06:57:39 PP0 TP0] Decode batch, #running-req: 1, #full token: 1280, full token usage: 0.00, #swa token: 1280, swa token usage: 0.00, cuda graph: True, gen throughput (token/s): 477.99, #queue-req: 0
+[2026-05-25 06:57:39 PP1 TP0] Decode batch, #running-req: 1, #full token: 1280, full token usage: 0.00, #swa token: 1280, swa token usage: 0.00, cuda graph: True, gen throughput (token/s): 482.84, #queue-req: 0
+[2026-05-25 06:57:40] INFO:     127.0.0.1:43458 - "GET /server_info HTTP/1.1" 200 OK
+[2026-05-25 06:57:40] INFO:     127.0.0.1:43460 - "GET /server_info HTTP/1.1" 200 OK
+[2026-05-25 06:57:41] INFO:     10.246.43.19:52374 - "GET /metrics HTTP/1.1" 404 Not Found
+[2026-05-25 06:57:42] SIGTERM received. signum=None frame=None. Draining requests and shutting down...
+[2026-05-25 06:57:43] Gracefully exiting... Remaining number of requests 0. Remaining requests remaining_rids=[].
+[2026-05-25 06:57:43] Subprocess scheduler_2 (pid=1865073) crashed with exit code -15. Triggering SIGQUIT for cleanup...

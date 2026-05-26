@@ -229,4 +229,56 @@ pp_recv_impl(const ncclDevComm_t nccl_dev_comm, const ncclWindow_t nccl_window,
     }
 }
 
+template <int kNumRanks,
+          int64_t kNumTimeoutCycles>
+__global__ void __launch_bounds__(32, 1)
+pp_recv_buffer_impl(const ncclDevComm_t nccl_dev_comm, const ncclWindow_t nccl_window,
+                    void* workspace,
+                    const int rank_idx, const int src_rank_idx) {
+    const auto sm_idx = static_cast<int>(blockIdx.x);
+    const auto workspace_layout = layout::WorkspaceLayout(workspace, 1, kNumRanks, 0);
+    const auto [src_idx_in_local, local_idx_in_src] = get_buffer_offset<kNumRanks>(src_rank_idx, rank_idx);
+
+    // Gin handle
+    const auto gin = handle::NCCLGin(nccl_dev_comm, nccl_window, 0, NCCL_GIN_RESOURCE_SHARING_CTA);
+
+    // Wait until the sender has written the recv slot, but do not copy it out.
+    const auto recv_count_ptr = workspace_layout.get_pp_recv_count_ptr(src_idx_in_local);
+    const auto recv_count = __ldg(recv_count_ptr);
+    if (ptx::elect_one_sync()) {
+        check_signal<kNumTimeoutCycles>(
+            gin,
+            static_cast<ncclGinSignal_t>(src_idx_in_local + kNumRanks),
+            recv_count + 1,
+            []() { printf("DeepEP PP recv-buffer timeout, recv buffer is empty\n"); }
+        );
+    }
+    cooperative_groups::this_grid().sync();
+
+    // Advance the receive counter so following receives can use later ring slots.
+    // The sender-side slot release is intentionally split into pp_release_recv_impl.
+    if (sm_idx == 0 and ptx::elect_one_sync())
+        *recv_count_ptr += 1;
+}
+
+template <int kNumRanks>
+__global__ void __launch_bounds__(32, 1)
+pp_release_recv_impl(const ncclDevComm_t nccl_dev_comm, const ncclWindow_t nccl_window,
+                     const int rank_idx, const int src_rank_idx) {
+    const auto pair = get_buffer_offset<kNumRanks>(src_rank_idx, rank_idx);
+    const auto local_idx_in_src = pair.second;
+
+    // Gin handle
+    const auto gin = handle::NCCLGin(nccl_dev_comm, nccl_window, 0, NCCL_GIN_RESOURCE_SHARING_CTA);
+
+    // Tell the sender that one recv slot has been consumed and can be reused.
+    if (ptx::elect_one_sync()) {
+        ptx::fence_acq_rel_sys();
+        gin.signal<ncclTeamTagWorld>(
+            src_rank_idx,
+            ncclGin_SignalInc(static_cast<ncclGinSignal_t>(kNumRanks + local_idx_in_src + 2))
+        );
+    }
+}
+
 } // namespace deep_ep::elastic

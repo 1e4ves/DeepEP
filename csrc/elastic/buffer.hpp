@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cuda_runtime.h>
+#include <array>
 #include <memory>
 #include <vector>
 #include <pybind11/functional.h>
@@ -68,6 +69,7 @@ class ElasticBuffer {
     int prev_rank_idx = 0, next_rank_idx = 0;
     int64_t num_max_pp_tensor_bytes = 0;
     int num_max_pp_inflight_tensors = 0;
+    mutable std::array<int64_t, 2> pp_recv_host_counts = {0, 0};
 
     // AGRS session settings
     int64_t num_max_agrs_session_bytes = 0;
@@ -78,6 +80,12 @@ class ElasticBuffer {
     // AGRS in-session settings
     int64_t agrs_buffer_offset = 0;
     int agrs_buffer_slot_idx = 0;
+
+    int get_pp_local_peer_buffer_idx(const int& peer_rank_idx) const {
+        EP_HOST_ASSERT(peer_rank_idx == prev_rank_idx or peer_rank_idx == next_rank_idx);
+        const auto peer_next_rank_idx = (peer_rank_idx + 1) % nccl_context->num_ranks;
+        return nccl_context->rank_idx == peer_next_rank_idx ? 0 : 1;
+    }
 
 public:
     ElasticBuffer(const int& rank_idx, const int& num_ranks,
@@ -312,6 +320,7 @@ public:
         this->next_rank_idx = (nccl_context->rank_idx + 1) % nccl_context->num_ranks;
         this->num_max_pp_tensor_bytes = math::align<int64_t>(num_max_tensor_bytes, 32);
         this->num_max_pp_inflight_tensors = num_max_inflight_tensors;
+        this->pp_recv_host_counts = {0, 0};
     }
 
     void pp_send(const torch::Tensor& x, const int& dst_rank_idx, const int& num_sms) const {
@@ -337,6 +346,7 @@ public:
         EP_HOST_ASSERT(num_max_pp_tensor_bytes > 0 and num_max_pp_inflight_tensors > 0);
         EP_HOST_ASSERT(x.is_cuda() and x.is_contiguous() and x.nbytes() <= num_max_pp_tensor_bytes);
         EP_HOST_ASSERT(src_rank_idx == prev_rank_idx or src_rank_idx == next_rank_idx);
+        const auto src_idx_in_local = get_pp_local_peer_buffer_idx(src_rank_idx);
 
         launch_pp_recv(
             nccl_context->dev_comm, nccl_context->window,
@@ -348,6 +358,46 @@ public:
             num_sms == 0 ? jit::device_runtime->get_num_sms() : num_sms,
             num_gpu_timeout_cycles,
             jit::device_runtime->get_num_smem_bytes(),
+            at::cuda::getCurrentCUDAStream()
+        );
+        pp_recv_host_counts.at(src_idx_in_local) += 1;
+    }
+
+    torch::Tensor pp_recv_buffer(const int64_t& num_tensor_bytes,
+                                 const int& src_rank_idx) {
+        EP_HOST_ASSERT(num_max_pp_tensor_bytes > 0 and num_max_pp_inflight_tensors > 0);
+        EP_HOST_ASSERT(num_tensor_bytes > 0 and num_tensor_bytes <= num_max_pp_tensor_bytes);
+        EP_HOST_ASSERT(src_rank_idx == prev_rank_idx or src_rank_idx == next_rank_idx);
+
+        const auto src_idx_in_local = get_pp_local_peer_buffer_idx(src_rank_idx);
+        const auto slot_idx = pp_recv_host_counts.at(src_idx_in_local) % num_max_pp_inflight_tensors;
+        auto recv_buffer_ptr = math::advance_ptr(
+            buffer,
+            ((src_idx_in_local + 0) * num_max_pp_inflight_tensors + slot_idx) * num_max_pp_tensor_bytes);
+
+        launch_pp_recv_buffer(
+            nccl_context->dev_comm, nccl_context->window,
+            workspace,
+            nccl_context->rank_idx, src_rank_idx, nccl_context->num_ranks,
+            num_gpu_timeout_cycles,
+            at::cuda::getCurrentCUDAStream()
+        );
+        pp_recv_host_counts.at(src_idx_in_local) += 1;
+
+        return torch::from_blob(
+            recv_buffer_ptr,
+            {num_tensor_bytes},
+            torch::TensorOptions().dtype(torch::kByte).device(torch::kCUDA)
+        );
+    }
+
+    void pp_release_recv(const int& src_rank_idx) const {
+        EP_HOST_ASSERT(num_max_pp_tensor_bytes > 0 and num_max_pp_inflight_tensors > 0);
+        EP_HOST_ASSERT(src_rank_idx == prev_rank_idx or src_rank_idx == next_rank_idx);
+
+        launch_pp_release_recv(
+            nccl_context->dev_comm, nccl_context->window,
+            nccl_context->rank_idx, src_rank_idx, nccl_context->num_ranks,
             at::cuda::getCurrentCUDAStream()
         );
     }
@@ -1374,6 +1424,8 @@ static void register_apis(pybind11::module_& m) {
         .def("pp_set_config", &ElasticBuffer::pp_set_config)
         .def("pp_send", &ElasticBuffer::pp_send)
         .def("pp_recv", &ElasticBuffer::pp_recv)
+        .def("pp_recv_buffer", &ElasticBuffer::pp_recv_buffer)
+        .def("pp_release_recv", &ElasticBuffer::pp_release_recv)
         .def("create_agrs_session", &ElasticBuffer::create_agrs_session)
         .def("destroy_agrs_session", &ElasticBuffer::destroy_agrs_session)
         .def("agrs_set_config", &ElasticBuffer::agrs_set_config)

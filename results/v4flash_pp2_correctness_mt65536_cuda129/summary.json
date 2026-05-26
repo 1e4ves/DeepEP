@@ -1,0 +1,7 @@
+{
+  "baseline_log": "/root/DeepEP/results/v4flash_pp2_correctness_mt65536_cuda129/v4flash_pp2_tp4_baseline.log",
+  "deepep_log": "/root/DeepEP/results/v4flash_pp2_correctness_mt65536_cuda129/v4flash_pp2_tp4_deepep.log",
+  "num_requests": 3,
+  "mismatches": [],
+  "passed": true
+}

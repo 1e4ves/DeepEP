@@ -488,6 +488,33 @@ class ElasticBuffer:
         """
         self.runtime.pp_recv(t, src_rank_idx, num_sms)
 
+    def pp_recv_tensor(
+        self,
+        shape: Union[Tuple[int, ...], torch.Size],
+        dtype: torch.dtype,
+        src_rank_idx: int,
+    ) -> torch.Tensor:
+        """
+        (Experimental) Receive a PP tensor as a zero-copy view of the internal recv buffer.
+        The caller must invoke `pp_release_recv` after the returned tensor is no longer used.
+
+        Arguments:
+            shape: the received tensor shape.
+            dtype: the received tensor dtype.
+            src_rank_idx: the source rank index (must be prev or next rank in the ring).
+        """
+        num_bytes = math.prod(shape) * dtype.itemsize
+        return self.runtime.pp_recv_buffer(num_bytes, src_rank_idx).view(dtype).view(shape)
+
+    def pp_release_recv(self, src_rank_idx: int) -> None:
+        """
+        (Experimental) Release one zero-copy PP recv buffer previously returned by `pp_recv_tensor`.
+
+        Arguments:
+            src_rank_idx: the source rank index for the receive being released.
+        """
+        self.runtime.pp_release_recv(src_rank_idx)
+
     def create_agrs_session(self) -> None:
         """
         (Experimental) Begin a new all-gather reduce-scatter (AGRS) session. Must be paired with `destroy_agrs_session`.

@@ -179,4 +179,118 @@ static void launch_pp_recv(const ncclDevComm_t& nccl_dev_comm,
     PPRecvRuntime::launch(runtime, args, stream);
 }
 
+class PPRecvBufferRuntime final : public jit::LaunchRuntime<PPRecvBufferRuntime> {
+public:
+    struct Args {
+        // Templated arguments
+        int num_ranks;
+        int64_t num_timeout_cycles;
+
+        // Parameters
+        ncclDevComm_t nccl_dev_comm;
+        ncclWindow_t nccl_window;
+        void* workspace;
+        int rank_idx;
+        int src_rank_idx;
+
+        jit::LaunchArgs launch_args;
+    };
+
+    static std::string generate_impl(const Args& args) {
+        return fmt::format(R"(
+#include <deep_ep/impls/pp_send_recv.cuh>
+
+using namespace deep_ep::elastic;
+
+static void __instantiate_kernel() {{
+    auto ptr = reinterpret_cast<void*>(&pp_recv_buffer_impl<{}, {}>);
+}}
+)", args.num_ranks,
+    args.num_timeout_cycles);
+    }
+
+    static void launch_impl(const jit::KernelHandle& kernel, const jit::LaunchConfigHandle& config, Args args) {
+        EP_CUDA_UNIFIED_CHECK(jit::launch_kernel(
+            kernel, config,
+            args.nccl_dev_comm, args.nccl_window,
+            args.workspace,
+            args.rank_idx, args.src_rank_idx
+        ));
+    }
+};
+
+static void launch_pp_recv_buffer(const ncclDevComm_t& nccl_dev_comm,
+                                  const ncclWindow_t& nccl_window,
+                                  void* workspace,
+                                  const int& rank_idx, const int& src_rank_idx, const int& num_ranks,
+                                  const int64_t& num_timeout_cycles,
+                                  const at::cuda::CUDAStream& stream) {
+    const PPRecvBufferRuntime::Args args = {
+        .num_ranks = num_ranks,
+        .num_timeout_cycles = num_timeout_cycles,
+        .nccl_dev_comm = nccl_dev_comm,
+        .nccl_window = nccl_window,
+        .workspace = workspace,
+        .rank_idx = rank_idx,
+        .src_rank_idx = src_rank_idx,
+        .launch_args = jit::LaunchArgs(1, 32, 0, 1, true)
+    };
+    const auto code = PPRecvBufferRuntime::generate(args);
+    const auto runtime = jit::compiler->build("pp_recv_buffer", code);
+    PPRecvBufferRuntime::launch(runtime, args, stream);
+}
+
+class PPReleaseRecvRuntime final : public jit::LaunchRuntime<PPReleaseRecvRuntime> {
+public:
+    struct Args {
+        // Templated arguments
+        int num_ranks;
+
+        // Parameters
+        ncclDevComm_t nccl_dev_comm;
+        ncclWindow_t nccl_window;
+        int rank_idx;
+        int src_rank_idx;
+
+        jit::LaunchArgs launch_args;
+    };
+
+    static std::string generate_impl(const Args& args) {
+        return fmt::format(R"(
+#include <deep_ep/impls/pp_send_recv.cuh>
+
+using namespace deep_ep::elastic;
+
+static void __instantiate_kernel() {{
+    auto ptr = reinterpret_cast<void*>(&pp_release_recv_impl<{}>);
+}}
+)", args.num_ranks);
+    }
+
+    static void launch_impl(const jit::KernelHandle& kernel, const jit::LaunchConfigHandle& config, Args args) {
+        EP_CUDA_UNIFIED_CHECK(jit::launch_kernel(
+            kernel, config,
+            args.nccl_dev_comm, args.nccl_window,
+            args.rank_idx, args.src_rank_idx
+        ));
+    }
+};
+
+static void launch_pp_release_recv(const ncclDevComm_t& nccl_dev_comm,
+                                   const ncclWindow_t& nccl_window,
+                                   const int& rank_idx, const int& src_rank_idx, const int& num_ranks,
+                                   const at::cuda::CUDAStream& stream) {
+    const PPReleaseRecvRuntime::Args args = {
+        .num_ranks = num_ranks,
+        .nccl_dev_comm = nccl_dev_comm,
+        .nccl_window = nccl_window,
+        .rank_idx = rank_idx,
+        .src_rank_idx = src_rank_idx,
+        .launch_args = jit::LaunchArgs(1, 32, 0, 1, true)
+    };
+    const auto code = PPReleaseRecvRuntime::generate(args);
+    const auto runtime = jit::compiler->build("pp_release_recv", code);
+    PPReleaseRecvRuntime::launch(runtime, args, stream);
+}
+
 }  // namespace deep_ep::elastic
